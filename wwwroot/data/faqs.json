@@ -1,0 +1,58 @@
+[
+  {
+    "id": "faq-1",
+    "question": "What sets BlueGridSolutions apart from traditional property management firms?",
+    "answer": "We combine institutional-grade financial analytics with white-glove concierge property care. Our clients benefit from sub-2-hour emergency maintenance SLAs, real-time financial reporting, strict 5-point tenant screening, and an average 99.4% occupancy rate.",
+    "category": "Property Management",
+    "displayOrder": 1
+  },
+  {
+    "id": "faq-2",
+    "question": "How do you screen and select prospective tenants?",
+    "answer": "Our rigorous 5-point tenant vetting protocol evaluates nationwide credit scores, verified employment and W2 income (requiring at least 3x monthly rent), criminal background checks, past eviction registries, and direct interviews with previous landlords.",
+    "category": "Tenant Placement",
+    "displayOrder": 2
+  },
+  {
+    "id": "faq-3",
+    "question": "How quickly do you handle maintenance emergencies?",
+    "answer": "We maintain a guaranteed under-2-hour emergency dispatch response 24 hours a day, 365 days a year. Our pre-vetted network of licensed, bonded master tradespeople ensures urgent plumbing, electrical, or HVAC issues are mitigated swiftly.",
+    "category": "Maintenance SLAs",
+    "displayOrder": 3
+  },
+  {
+    "id": "faq-4",
+    "question": "How and when do property owners receive their monthly rental disbursements?",
+    "answer": "Owner disbursements are processed via automated Direct Deposit (ACH) on the 10th of every month. Each disbursement is accompanied by a transparent itemized statement detailing collected rent, authorized expenses, and reserve balance.",
+    "category": "Fees & Pricing",
+    "displayOrder": 4
+  },
+  {
+    "id": "faq-5",
+    "question": "What is your management fee structure?",
+    "answer": "Our management fees are structured as a competitive percentage of collected rent with zero hidden fees. We do not charge reserve markups or onboarding setup fees. Custom tier rates are available for multi-property portfolios.",
+    "category": "Fees & Pricing",
+    "displayOrder": 5
+  },
+  {
+    "id": "faq-6",
+    "question": "How often do you inspect managed properties?",
+    "answer": "We conduct detailed photographic inspections before tenant move-in, bi-annually during occupancy, and upon move-out. Owners receive full digital inspection reports with high-resolution imagery via their portal.",
+    "category": "Property Management",
+    "displayOrder": 6
+  },
+  {
+    "id": "faq-7",
+    "question": "Can you coordinate capital renovations and property upgrades?",
+    "answer": "Yes. Our Capital Improvements advisory team manages design, municipal permitting, contractor bidding, and on-site oversight for renovations aimed at boosting rental yields and long-term appraisal value.",
+    "category": "Property Management",
+    "displayOrder": 7
+  },
+  {
+    "id": "faq-8",
+    "question": "How do I transition an existing tenant and lease to BlueGridSolutions?",
+    "answer": "Our turnkey onboarding team handles the entire transition. We notify the tenant, transfer security deposits into compliant trust accounts, audit current lease terms, and perform a baseline condition inspection with zero interruption to rent collection.",
+    "category": "Tenant Placement",
+    "displayOrder": 8
+  }
+]

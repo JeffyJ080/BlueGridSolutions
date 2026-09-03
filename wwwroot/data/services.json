@@ -1,0 +1,128 @@
+[
+  {
+    "id": "full-property-management",
+    "title": "Full-Portfolio Property Management",
+    "tagline": "End-to-end stewardship from lease onboarding to financial optimization",
+    "icon": "building",
+    "summary": "Complete turnkey oversight of your luxury real estate assets, handling legal compliance, rent collection, routine inspections, and tenant relations.",
+    "fullDescription": "Our comprehensive property management service eliminates the operational burden of property ownership. We provide rigorous rent collection protocols, regular high-resolution photographic inspection audits, dispute mediation, and transparent accounting with automated owner disbursements directly into your preferred account.",
+    "keyFeatures": [
+      "Rigorous bi-annual photographic inspection audits",
+      "Automated rent collection with 0% payment default rate",
+      "Comprehensive municipal legal & safety compliance",
+      "Real-time investor reporting dashboard & disbursement tracking"
+    ],
+    "ownerBenefits": [
+      "Zero operational overhead for property owners",
+      "Predictable, on-time monthly cash flow distribution",
+      "Long-term structural asset preservation"
+    ],
+    "badge": "Most Comprehensive",
+    "isPopular": true
+  },
+  {
+    "id": "tenant-placement",
+    "title": "High-Yield Tenant Placement",
+    "tagline": "Rigorous vetting and placement of qualified, high-retention occupants",
+    "icon": "users",
+    "summary": "Multi-channel luxury marketing paired with 5-point background checks, income verification, and bespoke lease drafting to secure prime tenants.",
+    "fullDescription": "Securing the right tenant is fundamental to safeguarding your property's value. Our placement protocol utilizes luxury staging, professional HDR media, targeted syndication on high-end rental portals, and exhaustive financial vetting including credit history, employer references, and previous landlord audits.",
+    "keyFeatures": [
+      "5-point background, credit, and asset verification",
+      "Professional 4K HDR staging photography and virtual tours",
+      "Custom attorney-reviewed residential and commercial lease agreements",
+      "Average placement turnaround under 18 days"
+    ],
+    "ownerBenefits": [
+      "Minimal vacancy duration between tenancy cycles",
+      "Significantly reduced risk of property damage and lease defaults",
+      "Optimal market rental yields negotiated on your behalf"
+    ],
+    "badge": "High Demand",
+    "isPopular": true
+  },
+  {
+    "id": "maintenance-coordination",
+    "title": "24/7 Preventative Maintenance",
+    "tagline": "Rapid emergency dispatch and proactive asset lifecycle preservation",
+    "icon": "wrench",
+    "summary": "Dedicated round-the-clock maintenance dispatch backed by an exclusive network of vetted, licensed, and insured master tradespeople.",
+    "fullDescription": "From unexpected HVAC failures to scheduled roof inspections, our 24/7 maintenance dispatch ensures emergencies are mitigated within 2 hours. We negotiate competitive commercial trade rates, inspect completed repairs before authorizing payment, and implement scheduled seasonal preventative maintenance routines.",
+    "keyFeatures": [
+      "Guaranteed under 2-hour emergency dispatch response",
+      "Exclusive network of licensed, bonded, and insured master contractors",
+      "Transparent invoice verification with zero hidden markups",
+      "Seasonal HVAC, plumbing, and structural preventative audits"
+    ],
+    "ownerBenefits": [
+      "Substantial savings on vendor repair bills via negotiated rates",
+      "Prevention of costly secondary water and structural damage",
+      "High tenant satisfaction resulting in multi-year lease renewals"
+    ],
+    "badge": "24/7 Available",
+    "isPopular": false
+  },
+  {
+    "id": "financial-reporting",
+    "title": "Financial Stewardship & Reporting",
+    "tagline": "Clear, audited accounting and tax-ready cash flow statements",
+    "icon": "chart-line",
+    "summary": "Monthly P&L statements, balance sheets, expense tracking, and year-end tax documentation generated with institutional accounting rigor.",
+    "fullDescription": "Take the guesswork out of property finances. We deliver real-time digital access to your financial performance, including detailed line-item expense ledgers, reserve account tracking, and 1099-ready annual tax packages compiled by certified property accounting professionals.",
+    "keyFeatures": [
+      "Interactive digital owner portal with live ledger access",
+      "Automated monthly P&L and cash flow disbursement statements",
+      "Year-end tax reconciliation packages (1099 & Schedule E ready)",
+      "Dedicated capital expenditure reserve planning and tracking"
+    ],
+    "ownerBenefits": [
+      "Seamless annual tax filing with categorized deductions",
+      "Complete clarity on net yield and return on investment",
+      "Strict trust account compliance with state regulatory boards"
+    ],
+    "badge": "Institutional Grade",
+    "isPopular": false
+  },
+  {
+    "id": "commercial-facility",
+    "title": "Commercial Facility Management",
+    "tagline": "Dedicated operational management for office parks and retail plazas",
+    "icon": "briefcase",
+    "summary": "Tailored facility management for mixed-use, commercial office, and retail properties focusing on tenant retention, vendor SLAs, and CAM reconciliation.",
+    "fullDescription": "Commercial properties require specialized regulatory management, vendor contract negotiations, and rigorous Common Area Maintenance (CAM) budgeting. BlueGridSolutions ensures peak operational efficiency for commercial hubs, fostering stable, long-term anchor tenant tenancies.",
+    "keyFeatures": [
+      "Annual Common Area Maintenance (CAM) budgeting and reconciliation",
+      "Commercial lease covenant enforcement and insurance compliance",
+      "Energy efficiency audits and smart HVAC scheduling",
+      "Janitorial, security, and elevator vendor contract oversight"
+    ],
+    "ownerBenefits": [
+      "Maximized Net Operating Income (NOI) across commercial assets",
+      "Smooth tenant-landlord relations with minimal lease friction",
+      "Enhanced building asset appraisal value"
+    ],
+    "badge": "Commercial",
+    "isPopular": false
+  },
+  {
+    "id": "renovation-advisory",
+    "title": "Capital Improvement & Renovation",
+    "tagline": "Strategic property upgrades targeted to maximize rent growth and ROI",
+    "icon": "tools",
+    "summary": "Turnkey project management for kitchen, bathroom, and exterior modernization to elevate property tier and unlock substantial rental premiums.",
+    "fullDescription": "Whether refreshing a luxury penthouse between tenants or executing a full exterior envelope upgrade, our renovation advisory team oversees architectural planning, permit procurement, contractor bidding, and on-site quality control, ensuring projects finish on time and within budget.",
+    "keyFeatures": [
+      "Comprehensive ROI analysis on proposed capital expenditures",
+      "Permit acquisition, municipal compliance, and architectural oversight",
+      "Vetted contractor bidding and fixed-price milestone contracts",
+      "Pre-renovation and post-renovation high-resolution virtual walkthroughs"
+    ],
+    "ownerBenefits": [
+      "Average 18-25% increase in achievable monthly rental rates",
+      "Tax-advantaged asset depreciation acceleration",
+      "Zero on-site project management required by the owner"
+    ],
+    "badge": "Value Add",
+    "isPopular": false
+  }
+]

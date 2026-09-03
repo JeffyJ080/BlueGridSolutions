@@ -1,0 +1,51 @@
+{
+  "name": "BlueGridSolutions",
+  "tagline": "Excellence in Luxury Property Management & Investment Stewardship",
+  "shortDescription": "BlueGridSolutions delivers world-class property management, tenant placement, and preventative maintenance coordination for discerning real estate investors and premier commercial assets.",
+  "story": "Founded in 2011, BlueGridSolutions was established with a singular vision: to revolutionize property stewardship by combining high-touch concierge service with rigorous data-driven asset management. Over the past decade, we have grown from managing boutique luxury residences to overseeing a diversified, multi-million dollar portfolio across residential, commercial, and executive properties. We treat every property as a high-performing investment, maximizing yields while protecting capital longevity.",
+  "mission": "To maximize real estate asset returns and protect investor wealth through uncompromising property care, meticulous tenant screening, and transparent financial stewardship.",
+  "vision": "To be the premier benchmark in luxury property management and maintenance coordination, recognized for technological precision, integrity, and elite client satisfaction.",
+  "coreValues": [
+    "Uncompromising Integrity & Transparency",
+    "Data-Driven Capital Optimization",
+    "24/7 Proactive Property Preservation",
+    "Concierge-Tier Investor & Tenant Experience",
+    "Sustainable & Smart Building Stewardship"
+  ],
+  "keyMetrics": [
+    {
+      "value": "99.4%",
+      "label": "Occupancy Rate",
+      "description": "Consistent high-retention tenant placement across all managed assets"
+    },
+    {
+      "value": "$420M+",
+      "label": "Assets Under Care",
+      "description": "Total property portfolio value managed across residential and commercial sectors"
+    },
+    {
+      "value": "< 2 hrs",
+      "label": "Emergency SLA",
+      "description": "Average response time for rapid contractor dispatch and maintenance resolution"
+    },
+    {
+      "value": "15+ Yrs",
+      "label": "Industry Leadership",
+      "description": "Dedicated service to institutional owners, family offices, and private investors"
+    }
+  ],
+  "contact": {
+    "email": "inquiries@bluegridsolutions.com",
+    "phone": "+1 (800) 584-2970",
+    "whatsAppNumber": "+18005842970",
+    "officeAddress": "850 Ocean View Boulevard, Suite 1400",
+    "cityStateZip": "Marina Bay, CA 90292",
+    "operatingHours": "Mon – Fri: 08:00 – 18:00 | 24/7 Emergency Dispatch"
+  },
+  "socials": {
+    "linkedIn": "https://linkedin.com/company/bluegridsolutions",
+    "instagram": "https://instagram.com/bluegridsolutions",
+    "facebook": "https://facebook.com/bluegridsolutions",
+    "twitter": "https://twitter.com/bluegridsol"
+  }
+}

@@ -1,0 +1,183 @@
+[
+  {
+    "id": "azure-crest-villa",
+    "title": "The Azure Crest Estate",
+    "category": "Executive Villa",
+    "location": "742 Skyline Panorama Drive",
+    "city": "Pacific Palisades, CA",
+    "monthlyRent": 18500,
+    "valuation": 4750000,
+    "bedrooms": 5,
+    "bathrooms": 6,
+    "squareFeet": 6200,
+    "parkingSpaces": 4,
+    "status": "Available",
+    "imageUrl": "images/properties/azure-crest.jpg",
+    "galleryImages": [
+      "images/properties/azure-crest-1.jpg",
+      "images/properties/azure-crest-2.jpg",
+      "images/properties/azure-crest-3.jpg"
+    ],
+    "description": "An architectural masterpiece overlooking the Pacific coastline. Features a zero-edge infinity pool, private wine tasting cellar, temperature-controlled subterranean garage, and smart home automation throughout.",
+    "amenities": [
+      "Ocean View Infinity Pool",
+      "Smart Home Automation",
+      "Private Wine Cellar",
+      "Subterranean 4-Car Garage",
+      "Integrated Solar & Battery Backup"
+    ],
+    "projectedYieldPercent": 5.8,
+    "isFeatured": true,
+    "yearBuilt": 2022
+  },
+  {
+    "id": "the-lumina-penthouse",
+    "title": "The Lumina Sky Penthouse",
+    "category": "Luxury Residential",
+    "location": "1200 Grand Avenue, Unit 4201",
+    "city": "Downtown Los Angeles, CA",
+    "monthlyRent": 12500,
+    "valuation": 3200000,
+    "bedrooms": 3,
+    "bathrooms": 4,
+    "squareFeet": 3850,
+    "parkingSpaces": 3,
+    "status": "Available",
+    "imageUrl": "images/properties/lumina-penthouse.jpg",
+    "galleryImages": [
+      "images/properties/lumina-1.jpg",
+      "images/properties/lumina-2.jpg"
+    ],
+    "description": "High-altitude luxury offering panoramic 270-degree city views. Equipped with floor-to-ceiling acoustic glass, custom Italian walnut cabinetry, dual master suites, and dedicated concierge elevator access.",
+    "amenities": [
+      "Private Concierge Elevator",
+      "Wraparound Sunset Terrace",
+      "Miele & Gaggenau Kitchen",
+      "24/7 Doorman & Valet Service",
+      "Skyline Heated Spa"
+    ],
+    "projectedYieldPercent": 6.2,
+    "isFeatured": true,
+    "yearBuilt": 2021
+  },
+  {
+    "id": "marina-blue-towers",
+    "title": "Marina Blue Waterfront Residences",
+    "category": "Modern Apartment",
+    "location": "450 Admiralty Way",
+    "city": "Marina del Rey, CA",
+    "monthlyRent": 7200,
+    "valuation": 1850000,
+    "bedrooms": 2,
+    "bathrooms": 2,
+    "squareFeet": 1950,
+    "parkingSpaces": 2,
+    "status": "Leased",
+    "imageUrl": "images/properties/marina-blue.jpg",
+    "galleryImages": [
+      "images/properties/marina-1.jpg",
+      "images/properties/marina-2.jpg"
+    ],
+    "description": "Contemporary nautical elegance with direct private dock slip access. Open-concept living with quartz waterfall islands, expansive balconies, and serene marina channel vistas.",
+    "amenities": [
+      "Private Boat Slip Access",
+      "EV Fast Charging Stations",
+      "Heated Resort Pool & Cabanas",
+      "Fitness Center & Yoga Studio",
+      "Pet Concierge & Grooming Station"
+    ],
+    "projectedYieldPercent": 6.8,
+    "isFeatured": true,
+    "yearBuilt": 2023
+  },
+  {
+    "id": "apex-commercial-plaza",
+    "title": "Apex Innovation Commercial Plaza",
+    "category": "Commercial Asset",
+    "location": "8900 Technology Boulevard",
+    "city": "Irvine, CA",
+    "monthlyRent": 42000,
+    "valuation": 9800000,
+    "bedrooms": 0,
+    "bathrooms": 8,
+    "squareFeet": 18500,
+    "parkingSpaces": 45,
+    "status": "Under Management",
+    "imageUrl": "images/properties/apex-plaza.jpg",
+    "galleryImages": [
+      "images/properties/apex-1.jpg",
+      "images/properties/apex-2.jpg"
+    ],
+    "description": "A Class-A modern commercial business park hosting leading tech and medical ventures. Featuring LEED Gold certification, advanced fiber connectivity, and dedicated security operations.",
+    "amenities": [
+      "LEED Gold Certified Efficiency",
+      "High-Speed Redundant Fiber",
+      "Biometric Access & 24/7 Security",
+      "On-Site Cafe & Conference Center",
+      "Executive Parking Structure"
+    ],
+    "projectedYieldPercent": 7.4,
+    "isFeatured": false,
+    "yearBuilt": 2020
+  },
+  {
+    "id": "solstice-sanctuary",
+    "title": "The Solstice Sanctuary Villa",
+    "category": "Executive Villa",
+    "location": "3100 Cahuenga Mountain Way",
+    "city": "Hollywood Hills, CA",
+    "monthlyRent": 16000,
+    "valuation": 4100000,
+    "bedrooms": 4,
+    "bathrooms": 5,
+    "squareFeet": 5100,
+    "parkingSpaces": 3,
+    "status": "Available",
+    "imageUrl": "images/properties/solstice-sanctuary.jpg",
+    "galleryImages": [
+      "images/properties/solstice-1.jpg",
+      "images/properties/solstice-2.jpg"
+    ],
+    "description": "Secluded mid-century modern revival perched above the city lights. Features cantilevered glass decks, tranquil Japanese Zen rock gardens, and private screening room.",
+    "amenities": [
+      "Cantilevered Observation Deck",
+      "Dolby Atmos Screening Theater",
+      "Japanese Zen Garden",
+      "Chef's Outdoor BBQ Kitchen",
+      "Multi-Zone Climate Control"
+    ],
+    "projectedYieldPercent": 6.1,
+    "isFeatured": false,
+    "yearBuilt": 2019
+  },
+  {
+    "id": "harbor-terrace-flats",
+    "title": "Harbor Terrace Boutique Flats",
+    "category": "Modern Apartment",
+    "location": "210 Coastal Boulevard",
+    "city": "Newport Beach, CA",
+    "monthlyRent": 8900,
+    "valuation": 2400000,
+    "bedrooms": 3,
+    "bathrooms": 3,
+    "squareFeet": 2300,
+    "parkingSpaces": 2,
+    "status": "Available",
+    "imageUrl": "images/properties/harbor-terrace.jpg",
+    "galleryImages": [
+      "images/properties/harbor-1.jpg",
+      "images/properties/harbor-2.jpg"
+    ],
+    "description": "Refined coastal living footsteps from the harbor. Premium French oak hardwood flooring, Sub-Zero refrigeration, gas fireplaces, and private rooftop entertainment deck.",
+    "amenities": [
+      "Private Rooftop Deck",
+      "Sub-Zero & Wolf Appliances",
+      "Keyless Smart Entry",
+      "Beach Cruiser Bicycle Vault",
+      "Sound-Insulated Party Walls"
+    ],
+    "projectedYieldPercent": 6.5,
+    "isFeatured": true,
+    "yearBuilt": 2024
+  }
+]

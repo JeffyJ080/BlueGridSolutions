@@ -1,0 +1,70 @@
+[
+  {
+    "id": "alexander-wright",
+    "name": "Alexander Wright",
+    "role": "Managing Principal & Asset Strategist",
+    "department": "Executive Leadership",
+    "bio": "With over 18 years in institutional real estate and private equity portfolio management, Alexander directs the strategic vision and investor relations for BlueGridSolutions.",
+    "avatarUrl": "images/team/alexander-wright.jpg",
+    "email": "a.wright@bluegridsolutions.com",
+    "phone": "+1 (800) 584-2971",
+    "linkedInUrl": "https://linkedin.com/in/alexanderwright-bluegrid",
+    "experienceYears": 18,
+    "specializations": [
+      "Portfolio Capital Optimization",
+      "Asset Acquisition & Underwriting",
+      "Institutional Investor Advisory"
+    ]
+  },
+  {
+    "id": "eleanor-vance",
+    "name": "Eleanor Vance, CPM",
+    "role": "Director of Property Operations",
+    "department": "Property Operations",
+    "bio": "Certified Property Manager (CPM) with extensive expertise in prime residential portfolios and tenant retention strategies. Eleanor leads our concierge operations and tenant care team.",
+    "avatarUrl": "images/team/eleanor-vance.jpg",
+    "email": "e.vance@bluegridsolutions.com",
+    "phone": "+1 (800) 584-2972",
+    "linkedInUrl": "https://linkedin.com/in/eleanorvance-bluegrid",
+    "experienceYears": 14,
+    "specializations": [
+      "Concierge Tenancy Management",
+      "Lease Compliance & Governance",
+      "High-Value Dispute Mediation"
+    ]
+  },
+  {
+    "id": "marcus-thorne",
+    "name": "Marcus Thorne",
+    "role": "Head of Technical Facilities & Maintenance",
+    "department": "Maintenance & Infrastructure",
+    "bio": "Former commercial construction manager who oversees our 24/7 technical dispatch team and master contractor network, ensuring rapid SLA response and rigorous quality control.",
+    "avatarUrl": "images/team/marcus-thorne.jpg",
+    "email": "m.thorne@bluegridsolutions.com",
+    "phone": "+1 (800) 584-2973",
+    "linkedInUrl": "https://linkedin.com/in/marcusthorne-bluegrid",
+    "experienceYears": 16,
+    "specializations": [
+      "24/7 Rapid Emergency Response",
+      "Preventative HVAC & Building Audits",
+      "Vendor SLA & Cost Negotiation"
+    ]
+  },
+  {
+    "id": "sophia-chen",
+    "name": "Sophia Chen, CPA",
+    "role": "Chief Financial Officer & Yield Analyst",
+    "department": "Finance & Analytics",
+    "bio": "Specializing in real estate taxation, trust accounting, and predictive rental yield models. Sophia ensures all owner financial reporting is clear, auditable, and tax-optimized.",
+    "avatarUrl": "images/team/sophia-chen.jpg",
+    "email": "s.chen@bluegridsolutions.com",
+    "phone": "+1 (800) 584-2974",
+    "linkedInUrl": "https://linkedin.com/in/sophiachen-bluegrid",
+    "experienceYears": 12,
+    "specializations": [
+      "Real Estate Tax Strategy",
+      "Rental Yield & ROI Modeling",
+      "Trust Accounting & Disbursements"
+    ]
+  }
+]
