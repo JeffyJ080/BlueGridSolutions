@@ -1,0 +1,220 @@
+<div class="team-card luxury-card">
+    <div class="team-header">
+        <div class="team-avatar-box">
+            <div class="avatar-monogram">
+                <span>@GetInitials(Member.Name)</span>
+            </div>
+        </div>
+        <div class="team-identity">
+            <span class="team-dept-badge">@Member.Department</span>
+            <h3 class="team-name">@Member.Name</h3>
+            <p class="team-role">@Member.Role</p>
+        </div>
+    </div>
+
+    <div class="team-body">
+        <p class="team-bio">@Member.Bio</p>
+
+        @if (Member.Specializations.Any())
+        {
+            <div class="team-specializations">
+                <span class="specs-title">Expertise</span>
+                <div class="specs-pills">
+                    @foreach (var spec in Member.Specializations)
+                    {
+                        <span class="spec-pill">@spec</span>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="team-footer">
+        <div class="team-meta">
+            <span class="exp-badge">🏅 @Member.ExperienceYears Yrs Leadership</span>
+        </div>
+        <div class="team-contact-actions">
+            @if (!string.IsNullOrWhiteSpace(Member.Email))
+            {
+                <a href="mailto:@Member.Email" class="team-action-icon" aria-label="Email @Member.Name">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                </a>
+            }
+            @if (!string.IsNullOrWhiteSpace(Member.Phone))
+            {
+                <a href="tel:@Member.Phone" class="team-action-icon" aria-label="Call @Member.Name">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                </a>
+            }
+            @if (!string.IsNullOrWhiteSpace(Member.LinkedInUrl))
+            {
+                <a href="@Member.LinkedInUrl" target="_blank" rel="noopener noreferrer" class="team-action-icon" aria-label="LinkedIn Profile">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.45a1.64 1.64 0 1 0 0 3.28 1.64 1.64 0 0 0 0-3.28z"/></svg>
+                </a>
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+.team-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border: 1px solid var(--border-light);
+    position: relative;
+}
+
+.team-header {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-bottom: 1.4rem;
+}
+
+.team-avatar-box {
+    width: 68px;
+    height: 68px;
+    border-radius: var(--radius-full);
+    background: linear-gradient(135deg, var(--primary-navy) 0%, var(--secondary-navy) 100%);
+    border: 2px solid var(--luxury-gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: var(--shadow-sm);
+}
+
+.avatar-monogram {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--luxury-gold);
+    letter-spacing: 0.05em;
+}
+
+.team-identity {
+    flex: 1;
+}
+
+.team-dept-badge {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--luxury-gold-dark);
+    display: block;
+    margin-bottom: 0.2rem;
+}
+
+.team-name {
+    font-size: 1.2rem;
+    color: var(--primary-navy);
+    margin-bottom: 0.2rem;
+    line-height: 1.2;
+}
+
+.team-role {
+    font-size: 0.85rem;
+    color: #64748B;
+    font-weight: 500;
+}
+
+.team-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.team-bio {
+    font-size: 0.9rem;
+    color: #475569;
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+}
+
+.team-specializations {
+    margin-top: auto;
+    margin-bottom: 1.25rem;
+}
+
+.specs-title {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--primary-navy);
+    margin-bottom: 0.45rem;
+}
+
+.specs-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+}
+
+.spec-pill {
+    font-size: 0.75rem;
+    background-color: var(--off-white);
+    color: var(--primary-navy);
+    padding: 0.25rem 0.6rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-light);
+    font-weight: 500;
+}
+
+.team-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-light);
+}
+
+.exp-badge {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--luxury-gold-dark);
+}
+
+.team-contact-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.team-action-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-sm);
+    background-color: var(--off-white);
+    color: var(--primary-navy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border-light);
+    transition: all var(--transition-fast);
+}
+
+.team-action-icon:hover {
+    background-color: var(--luxury-gold);
+    color: var(--dark-navy);
+    border-color: var(--luxury-gold);
+    transform: translateY(-2px);
+}
+</style>
+
+@code {
+    [Parameter] public TeamMember Member { get; set; } = new();
+
+    private string GetInitials(string name)
+    {
+        if (string.IsNullOrWhiteSpace(name)) return "BG";
+        var parts = name.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        if (parts.Length >= 2)
+        {
+            return $"{parts[0][0]}{parts[1][0]}".ToUpperInvariant();
+        }
+        return name.Substring(0, Math.Min(2, name.Length)).ToUpperInvariant();
+    }
+}

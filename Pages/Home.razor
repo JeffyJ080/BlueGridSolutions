@@ -1,7 +1,198 @@
-﻿@page "/"
+@page "/"
+@inject IContentService ContentService
+@inject NavigationManager Navigation
 
-<PageTitle>Home</PageTitle>
+<PageTitle>BlueGridSolutions | Premier Luxury Property Management & Investment Stewardship</PageTitle>
 
-<h1>Hello, world!</h1>
+<HeadContent>
+    <meta name="description" content="BlueGridSolutions delivers world-class property management, tenant placement, and preventative maintenance for premier residential and commercial real estate." />
+</HeadContent>
 
-Welcome to your new app.
+<!-- Hero Section with Background Property Image -->
+<section class="hero-section bg-property-hero section-dark">
+    <div class="container hero-container">
+        <div class="hero-content animate-fade-in-up">
+            <span class="badge-gold">Investment Stewardship & Luxury Management</span>
+            <h1 class="hero-title">
+                Elevating Real Estate Stewardship <br />
+                <span class="text-gold">To An Art Form</span>
+            </h1>
+            <p class="hero-subtitle">
+                @(_company?.ShortDescription ?? "BlueGridSolutions delivers world-class property management, tenant placement, and preventative maintenance coordination for discerning real estate investors.")
+            </p>
+
+            <div class="hero-actions">
+                <NavLink href="projects" class="btn btn-gold btn-lg">
+                    <span>Explore Managed Portfolio</span>
+                    <span class="btn-arrow">→</span>
+                </NavLink>
+                <button type="button" class="btn btn-outline-white btn-lg" @onclick="() => _isQuoteModalOpen = true">
+                    <span>Request Bespoke Proposal</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Key Metrics Strip -->
+        @if (_company?.KeyMetrics != null && _company.KeyMetrics.Any())
+        {
+            <div class="metrics-grid animate-fade-in">
+                @foreach (var metric in _company.KeyMetrics)
+                {
+                    <div class="metric-card">
+                        <span class="metric-val">@metric.Value</span>
+                        <span class="metric-lbl">@metric.Label</span>
+                        <p class="metric-desc">@metric.Description</p>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</section>
+
+<!-- Executive Edge / Value Proposition -->
+<section class="section value-prop-section">
+    <div class="container">
+        <div class="section-header text-center">
+            <span class="badge-gold">The BlueGrid Standard</span>
+            <h2>Why Institutional & Private Investors Trust BlueGrid</h2>
+            <p class="section-lead">
+                We bridge the gap between institutional asset management and high-touch concierge property preservation.
+            </p>
+        </div>
+
+        <div class="value-prop-grid">
+            <div class="luxury-card value-card">
+                <div class="value-icon">💎</div>
+                <h3>Capital Preservation & Max Yields</h3>
+                <p>
+                    Targeted rental growth analysis, low vacancy downtime, and proactive tenant retention programs designed to maximize your net operating income year over year.
+                </p>
+            </div>
+
+            <div class="luxury-card value-card">
+                <div class="value-icon">⏱️</div>
+                <h3>24/7 Sub-2-Hour Emergency SLA</h3>
+                <p>
+                    Round-the-clock technical dispatch and an exclusive network of master tradespeople mitigate risks before minor issues escalate into costly damage.
+                </p>
+            </div>
+
+            <div class="luxury-card value-card">
+                <div class="value-icon">🛡️</div>
+                <h3>5-Point Tenant Screening Protocol</h3>
+                <p>
+                    Rigorous credit, employment, asset, criminal, and landlord vetting processes yield a 99.4% occupancy rate with 0% historic payment default rates.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Services Preview -->
+<section class="section services-preview-section bg-gold-subtle">
+    <div class="container">
+        <div class="section-header-row">
+            <div>
+                <span class="badge-gold">Core Offerings</span>
+                <h2>Comprehensive Property Solutions</h2>
+            </div>
+            <NavLink href="services" class="btn btn-outline-gold">
+                <span>View Full Service Catalog →</span>
+            </NavLink>
+        </div>
+
+        <div class="services-grid">
+            @foreach (var service in _featuredServices)
+            {
+                <ServiceCard Service="@service" OnRequestQuote="HandleServiceQuote" />
+            }
+        </div>
+    </div>
+</section>
+
+<!-- Featured Properties Showcase -->
+<section class="section properties-showcase-section">
+    <div class="container">
+        <div class="section-header-row">
+            <div>
+                <span class="badge-gold">Portfolio Spotlight</span>
+                <h2>Featured Managed Properties</h2>
+                <p class="section-lead" style="margin-bottom: 0;">
+                    Explore a curated selection of our premier residential, villa, and commercial assets.
+                </p>
+            </div>
+            <NavLink href="projects" class="btn btn-navy">
+                <span>Browse All Properties →</span>
+            </NavLink>
+        </div>
+
+        <div class="properties-grid">
+            @foreach (var property in _featuredProperties)
+            {
+                <PropertyCard Property="@property" OnInquire="HandlePropertyInquire" />
+            }
+        </div>
+    </div>
+</section>
+
+<!-- Retail & Commercial Advisory Callout Section -->
+<section class="section bg-property-retail section-dark cta-banner-section">
+    <div class="container">
+        <div class="cta-banner-content text-center">
+            <span class="badge-gold">Commercial & Retail Assets</span>
+            <h2 style="color: #FFFFFF; margin-bottom: 1rem;">
+                Looking For Turnkey Commercial Property & Retail Plaza Management?
+            </h2>
+            <p style="color: var(--soft-blue); max-width: 680px; margin: 0 auto 2rem auto; font-size: 1.05rem;">
+                From CAM reconciliations to anchor tenant leasing and vendor oversight, our dedicated commercial facilities team protects multi-million dollar business hubs.
+            </p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <button type="button" class="btn btn-gold btn-lg" @onclick="() => _isQuoteModalOpen = true">
+                    <span>Inquire About Commercial Care</span>
+                </button>
+                <NavLink href="contact" class="btn btn-outline-white btn-lg">
+                    <span>Contact Asset Advisory</span>
+                </NavLink>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Quote Modal -->
+<QuoteModal @bind-IsOpen="_isQuoteModalOpen" 
+            PreselectedService="@_preselectedService" 
+            PreselectedPropertyType="@_preselectedPropertyType" />
+@code {
+    private CompanyInfo? _company;
+    private List<ServiceItem> _featuredServices = new();
+    private List<PropertyProject> _featuredProperties = new();
+
+    private bool _isQuoteModalOpen = false;
+    private string? _preselectedService;
+    private string? _preselectedPropertyType;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _company = await ContentService.GetCompanyInfoAsync();
+        var allServices = await ContentService.GetServicesAsync();
+        _featuredServices = allServices.Take(3).ToList();
+        _featuredProperties = await ContentService.GetFeaturedProjectsAsync();
+        if (!_featuredProperties.Any())
+        {
+            var allProperties = await ContentService.GetProjectsAsync();
+            _featuredProperties = allProperties.Take(3).ToList();
+        }
+    }
+
+    private void HandleServiceQuote(ServiceItem service)
+    {
+        _preselectedService = service.Title;
+        _isQuoteModalOpen = true;
+    }
+
+    private void HandlePropertyInquire(PropertyProject property)
+    {
+        _preselectedPropertyType = property.Category;
+        _isQuoteModalOpen = true;
+    }
+}

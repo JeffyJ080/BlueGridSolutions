@@ -1,0 +1,136 @@
+@page "/services"
+@inject IContentService ContentService
+
+<PageTitle>Property Management & Coordination Services | BlueGridSolutions</PageTitle>
+
+<HeadContent>
+    <meta name="description" content="Explore our bespoke property management, 5-point tenant screening, 24/7 preventative maintenance, and financial reporting services for luxury properties." />
+</HeadContent>
+
+<!-- Services Hero -->
+<section class="page-hero-section bg-property-hero section-dark">
+    <div class="container text-center animate-fade-in-up">
+        <span class="badge-gold">Bespoke Real Estate Services</span>
+        <h1 style="color: #FFFFFF; margin-bottom: 1.25rem;">Institutional Precision. Concierge Care.</h1>
+        <p class="page-hero-lead">
+            Turnkey management solutions engineered to optimize cash flow, maintain 99.4% occupancy, and safeguard capital value across residential and commercial portfolios.
+        </p>
+    </div>
+</section>
+
+<!-- Full Services Grid -->
+<section class="section services-catalog-section">
+    <div class="container">
+        <div class="section-header text-center">
+            <span class="badge-gold">Tailored Solutions</span>
+            <h2>Our Full Management Suite</h2>
+            <p class="section-lead">
+                Every service is backed by transparent accounting, dedicated asset managers, and contractual SLAs.
+            </p>
+        </div>
+
+        <div class="services-full-grid">
+            @foreach (var service in _services)
+            {
+                <ServiceCard Service="@service" OnRequestQuote="HandleServiceQuote" />
+            }
+        </div>
+    </div>
+</section>
+
+<!-- 4-Step Onboarding Process -->
+<section class="section process-section bg-gold-subtle">
+    <div class="container">
+        <div class="section-header text-center">
+            <span class="badge-gold">Turnkey Seamless Transition</span>
+            <h2>How We Onboard & Optimize Your Assets</h2>
+            <p class="section-lead">
+                Our proven 4-stage framework guarantees zero disruption to current cash flow or existing tenancies.
+            </p>
+        </div>
+
+        <div class="process-grid">
+            <div class="luxury-card process-card">
+                <div class="step-num">01</div>
+                <h3>Comprehensive Portfolio Audit</h3>
+                <p>
+                    We conduct photographic baseline condition surveys, lease covenant reviews, and historical expense reconciliations.
+                </p>
+            </div>
+
+            <div class="luxury-card process-card">
+                <div class="step-num">02</div>
+                <h3>Yield & SLA Strategy</h3>
+                <p>
+                    We craft a tailored financial yield enhancement model, capital expenditure schedule, and preventative maintenance roadmap.
+                </p>
+            </div>
+
+            <div class="luxury-card process-card">
+                <div class="step-num">03</div>
+                <h3>Turnkey Tenant Transition</h3>
+                <p>
+                    We manage compliant trust deposit transfers, tenant communications, digital payment setup, and emergency dispatch integration.
+                </p>
+            </div>
+
+            <div class="luxury-card process-card">
+                <div class="step-num">04</div>
+                <h3>Automated Stewardship</h3>
+                <p>
+                    Enjoy real-time owner portal analytics, monthly on-time disbursements, and sub-2-hour contractor dispatch.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Interactive FAQ Accordion Section -->
+<section class="section faq-section">
+    <div class="container container-narrow">
+        <div class="section-header text-center">
+            <span class="badge-gold">Frequently Asked Questions</span>
+            <h2>Clear Answers. Total Transparency.</h2>
+            <p class="section-lead">
+                Find answers to common questions regarding management fees, SLAs, tenant placement, and onboarding.
+            </p>
+        </div>
+
+        <FaqAccordion Faqs="@_faqs" ShowCategoryFilter="true" />
+    </div>
+</section>
+
+<!-- Quote CTA Section -->
+<section class="section bg-navy-gradient section-dark cta-banner-section">
+    <div class="container text-center">
+        <span class="badge-gold">Custom Solutions</span>
+        <h2 style="color: #FFFFFF; margin-bottom: 1rem;">Need A Customized Management Tier?</h2>
+        <p style="color: var(--soft-blue); max-width: 600px; margin: 0 auto 2rem auto;">
+            We offer bespoke agreements for multi-unit luxury portfolios, family estates, and commercial facilities.
+        </p>
+        <button type="button" class="btn btn-gold btn-lg" @onclick="() => _isQuoteModalOpen = true">
+            <span>Request Custom Proposal</span>
+        </button>
+    </div>
+</section>
+
+<QuoteModal @bind-IsOpen="_isQuoteModalOpen" 
+            PreselectedService="@_preselectedService" />
+@code {
+    private List<ServiceItem> _services = new();
+    private List<FaqItem> _faqs = new();
+    private bool _isQuoteModalOpen = false;
+    private string? _preselectedService;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _services = await ContentService.GetServicesAsync();
+        _faqs = await ContentService.GetFaqsAsync();
+    }
+
+    private void HandleServiceQuote(ServiceItem service)
+    {
+        _preselectedService = service.Title;
+        _isQuoteModalOpen = true;
+    }
+}

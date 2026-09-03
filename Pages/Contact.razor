@@ -1,0 +1,199 @@
+@page "/contact"
+@inject IContentService ContentService
+@inject INotificationService NotificationService
+
+<PageTitle>Contact & Concierge | BlueGridSolutions</PageTitle>
+
+<HeadContent>
+    <meta name="description" content="Get in touch with the BlueGridSolutions luxury property concierge and asset management advisory team." />
+</HeadContent>
+
+<!-- Contact Hero -->
+<section class="page-hero-section bg-property-hero section-dark">
+    <div class="container text-center animate-fade-in-up">
+        <span class="badge-gold">Get In Touch</span>
+        <h1 style="color: #FFFFFF; margin-bottom: 1.25rem;">Direct Investor Concierge</h1>
+        <p class="page-hero-lead">
+            Whether inquiring about full portfolio management, tenant placement, or a specific property, our team responds swiftly.
+        </p>
+    </div>
+</section>
+
+<!-- Contact Main Section -->
+<section class="section contact-main-section">
+    <div class="container">
+        <div class="contact-layout-grid">
+            <!-- Left Column: Contact Cards & Info -->
+            <div class="contact-info-col">
+                <div class="luxury-card contact-details-card">
+                    <span class="badge-gold">Our Headquarters</span>
+                    <h2 style="font-size: 1.6rem; margin-bottom: 1.5rem;">Marina Bay Executive Suite</h2>
+
+                    <div class="contact-detail-items">
+                        <div class="detail-item">
+                            <span class="detail-icon">📍</span>
+                            <div>
+                                <strong>Physical Address</strong>
+                                <p>@(_company?.Contact?.OfficeAddress ?? "850 Ocean View Boulevard, Suite 1400")<br />@(_company?.Contact?.CityStateZip ?? "Marina Bay, CA 90292")</p>
+                            </div>
+                        </div>
+
+                        <div class="detail-item">
+                            <span class="detail-icon">📞</span>
+                            <div>
+                                <strong>Direct Concierge Line</strong>
+                                <p><a href="tel:@(_company?.Contact?.Phone ?? "+18005842970")">@(_company?.Contact?.Phone ?? "+1 (800) 584-2970")</a></p>
+                            </div>
+                        </div>
+
+                        <div class="detail-item">
+                            <span class="detail-icon">✉️</span>
+                            <div>
+                                <strong>Electronic Inquiries</strong>
+                                <p><a href="mailto:@(_company?.Contact?.Email ?? "inquiries@bluegridsolutions.com")">@(_company?.Contact?.Email ?? "inquiries@bluegridsolutions.com")</a></p>
+                            </div>
+                        </div>
+
+                        <div class="detail-item">
+                            <span class="detail-icon">🕒</span>
+                            <div>
+                                <strong>Office & Dispatch Hours</strong>
+                                <p>@(_company?.Contact?.OperatingHours ?? "Mon – Fri: 08:00 – 18:00 | 24/7 Emergency Dispatch")</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    @if (!string.IsNullOrWhiteSpace(_company?.Contact?.WhatsAppNumber))
+                    {
+                        <div class="whatsapp-direct-box">
+                            <a href="@_company.Contact.WhatsAppDirectUrl" target="_blank" rel="noopener noreferrer" class="btn btn-gold w-100">
+                                <span>💬 Chat Directly on WhatsApp</span>
+                            </a>
+                        </div>
+                    }
+                </div>
+
+                <!-- Emergency Dispatch Card -->
+                <div class="luxury-card emergency-card">
+                    <div class="emergency-header">
+                        <span class="emergency-icon">🚨</span>
+                        <div>
+                            <h4>24/7 Rapid Emergency SLA</h4>
+                            <p style="margin: 0; font-size: 0.85rem; color: #64748B;">For active tenants & managed property emergencies</p>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.88rem; color: #475569; margin: 0.75rem 0 0 0;">
+                        Our automated dispatch protocol guarantees an on-site licensed master technician within <strong>2 hours</strong> for urgent plumbing, electrical, or structural incidents.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Right Column: Validated Contact Form -->
+            <div class="contact-form-col">
+                <div class="luxury-card form-container-card">
+                    <span class="badge-gold">Send A Message</span>
+                    <h2 style="font-size: 1.6rem; margin-bottom: 0.5rem;">How May We Assist You?</h2>
+                    <p style="color: #64748B; font-size: 0.92rem; margin-bottom: 2rem;">
+                        Please complete the fields below. A dedicated asset manager will respond promptly.
+                    </p>
+
+                    <EditForm Model="@_inquiry" OnValidSubmit="HandleSubmitInquiry">
+                        <DataAnnotationsValidator />
+
+                        <div class="form-row-2">
+                            <div class="form-group">
+                                <label class="form-label" for="contact-name">Full Name *</label>
+                                <InputText id="contact-name" class="form-input" @bind-Value="_inquiry.FullName" placeholder="e.g. Sterling Montgomery" />
+                                <ValidationMessage For="@(() => _inquiry.FullName)" class="validation-message" />
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="contact-email">Email Address *</label>
+                                <InputText id="contact-email" class="form-input" @bind-Value="_inquiry.Email" placeholder="sterling@holdings.com" />
+                                <ValidationMessage For="@(() => _inquiry.Email)" class="validation-message" />
+                            </div>
+                        </div>
+
+                        <div class="form-row-2">
+                            <div class="form-group">
+                                <label class="form-label" for="contact-phone">Phone Number *</label>
+                                <InputText id="contact-phone" class="form-input" @bind-Value="_inquiry.Phone" placeholder="+1 (555) 492-0192" />
+                                <ValidationMessage For="@(() => _inquiry.Phone)" class="validation-message" />
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="contact-service">Service Interest *</label>
+                                <InputSelect id="contact-service" class="form-select" @bind-Value="_inquiry.ServiceInterest">
+                                    <option value="">-- Select Service --</option>
+                                    <option value="Full-Portfolio Property Management">Full-Portfolio Property Management</option>
+                                    <option value="High-Yield Tenant Placement">High-Yield Tenant Placement</option>
+                                    <option value="24/7 Preventative Maintenance">24/7 Preventative Maintenance</option>
+                                    <option value="Commercial Facility Management">Commercial Facility Management</option>
+                                    <option value="Property Viewing / Rental Application">Property Viewing / Rental Application</option>
+                                    <option value="General Inquiry">General Inquiry</option>
+                                </InputSelect>
+                                <ValidationMessage For="@(() => _inquiry.ServiceInterest)" class="validation-message" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="contact-subject">Subject *</label>
+                            <InputText id="contact-subject" class="form-input" @bind-Value="_inquiry.Subject" placeholder="e.g. Portfolio Management for 4 Executive Units in Pacific Palisades" />
+                            <ValidationMessage For="@(() => _inquiry.Subject)" class="validation-message" />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="contact-pref">Preferred Contact Method</label>
+                            <InputSelect id="contact-pref" class="form-select" @bind-Value="_inquiry.PreferredContactMethod">
+                                <option value="Email">Email</option>
+                                <option value="Phone">Phone Call</option>
+                                <option value="WhatsApp">WhatsApp</option>
+                            </InputSelect>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="contact-msg">Message / Asset Specifications *</label>
+                            <InputTextArea id="contact-msg" class="form-textarea" @bind-Value="_inquiry.Message" rows="4" placeholder="Detail your properties, current status, or inquiry specifications..." />
+                            <ValidationMessage For="@(() => _inquiry.Message)" class="validation-message" />
+                        </div>
+
+                        <button type="submit" class="btn btn-gold btn-lg w-100" disabled="@_isSubmitting">
+                            @if (_isSubmitting)
+                            {
+                                <span>Submitting Inquiry...</span>
+                            }
+                            else
+                            {
+                                <span>Send Confidential Inquiry →</span>
+                            }
+                        </button>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@code {
+    private CompanyInfo? _company;
+    private ContactInquiryModel _inquiry = new();
+    private bool _isSubmitting = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _company = await ContentService.GetCompanyInfoAsync();
+    }
+
+    private async Task HandleSubmitInquiry()
+    {
+        _isSubmitting = true;
+        await Task.Delay(400); // Simulate client-side submission delay
+
+        NotificationService.ShowSuccess(
+            $"Thank you, {_inquiry.FullName}. Your message regarding '{_inquiry.Subject}' has been received. Our concierge will follow up via {_inquiry.PreferredContactMethod} shortly.",
+            "Inquiry Transmitted"
+        );
+
+        _inquiry = new ContactInquiryModel();
+        _isSubmitting = false;
+    }
+}

@@ -1,0 +1,114 @@
+.page-hero-section {
+    padding: 6rem 0;
+}
+
+.page-hero-lead {
+    font-size: 1.15rem;
+    color: var(--soft-blue);
+    max-width: 720px;
+    margin: 0 auto;
+    line-height: 1.7;
+}
+
+.story-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 3.5rem;
+    align-items: center;
+}
+
+.story-body p {
+    font-size: 1.05rem;
+    color: #475569;
+    line-height: 1.75;
+    margin-bottom: 1.25rem;
+}
+
+.story-highlights {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-light);
+}
+
+.highlight-num {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--luxury-gold-dark);
+}
+
+.highlight-lbl {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--primary-navy);
+}
+
+.story-focus-card {
+    border-left: 4px solid var(--luxury-gold);
+    padding: 2.5rem;
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.value-item-card {
+    position: relative;
+    padding: 2.2rem 2rem;
+}
+
+.val-index {
+    font-family: var(--font-serif);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--luxury-gold);
+    display: block;
+    margin-bottom: 0.75rem;
+}
+
+.val-title {
+    font-size: 1.2rem;
+    margin-bottom: 0.75rem;
+    color: var(--primary-navy);
+}
+
+.val-text {
+    font-size: 0.9rem;
+    color: #64748B;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+}
+
+@media (max-width: 1024px) {
+    .story-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .team-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .story-highlights {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}

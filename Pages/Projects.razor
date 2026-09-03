@@ -1,0 +1,129 @@
+@page "/projects"
+@inject IContentService ContentService
+
+<PageTitle>Managed Assets Portfolio | BlueGridSolutions</PageTitle>
+
+<HeadContent>
+    <meta name="description" content="Explore our curated portfolio of managed luxury villas, penthouses, waterfront residences, and prime commercial retail assets." />
+</HeadContent>
+
+<!-- Projects Hero -->
+<section class="page-hero-section bg-property-hero section-dark">
+    <div class="container text-center animate-fade-in-up">
+        <span class="badge-gold">Curated Property Portfolio</span>
+        <h1 style="color: #FFFFFF; margin-bottom: 1.25rem;">Exemplary Real Estate Under Management</h1>
+        <p class="page-hero-lead">
+            Discover our collection of executive villas, prime residential towers, and Class-A commercial assets overseen by BlueGridSolutions.
+        </p>
+    </div>
+</section>
+
+<!-- Filter & Grid Section -->
+<section class="section portfolio-section">
+    <div class="container">
+        <!-- Interactive Property Filter -->
+        <PropertyFilter @bind-SelectedCategory="_selectedCategory" 
+                        @bind-SelectedStatus="_selectedStatus" 
+                        @bind-SearchTerm="_searchTerm" />
+
+        <!-- Filter Results Status Bar -->
+        <div class="filter-results-bar">
+            <span class="results-count">
+                Showing <strong>@FilteredProperties.Count()</strong> of <strong>@_allProperties.Count</strong> properties
+            </span>
+            @if (_selectedCategory != "All" || _selectedStatus != "All" || !string.IsNullOrWhiteSpace(_searchTerm))
+            {
+                <button type="button" class="btn-reset-filters" @onclick="ResetFilters">
+                    Reset All Filters ✕
+                </button>
+            }
+        </div>
+
+        <!-- Properties Grid -->
+        @if (FilteredProperties.Any())
+        {
+            <div class="portfolio-grid animate-fade-in">
+                @foreach (var property in FilteredProperties)
+                {
+                    <PropertyCard Property="@property" OnInquire="HandlePropertyInquire" />
+                }
+            </div>
+        }
+        else
+        {
+            <div class="luxury-card text-center no-results-box animate-fade-in">
+                <span class="no-results-icon">🏢</span>
+                <h3>No Properties Found</h3>
+                <p style="color: #64748B; margin-bottom: 1.5rem;">
+                    We couldn't find any properties matching your current filter criteria ("@_selectedCategory", "@_selectedStatus").
+                </p>
+                <button type="button" class="btn btn-gold" @onclick="ResetFilters">
+                    <span>View All Properties</span>
+                </button>
+            </div>
+        }
+    </div>
+</section>
+
+<!-- Inquire Modal -->
+<QuoteModal @bind-IsOpen="_isQuoteModalOpen" 
+            PreselectedPropertyType="@_preselectedPropertyType" />
+@code {
+    private List<PropertyProject> _allProperties = new();
+    private string _selectedCategory = "All";
+    private string _selectedStatus = "All";
+    private string _searchTerm = string.Empty;
+
+    private bool _isQuoteModalOpen = false;
+    private string? _preselectedPropertyType;
+
+    private IEnumerable<PropertyProject> FilteredProperties
+    {
+        get
+        {
+            var query = _allProperties.AsEnumerable();
+
+            if (_selectedCategory != "All")
+            {
+                query = query.Where(p => string.Equals(p.Category, _selectedCategory, StringComparison.OrdinalIgnoreCase));
+            }
+
+            if (_selectedStatus != "All")
+            {
+                query = query.Where(p => string.Equals(p.Status, _selectedStatus, StringComparison.OrdinalIgnoreCase));
+            }
+
+            if (!string.IsNullOrWhiteSpace(_searchTerm))
+            {
+                var term = _searchTerm.Trim();
+                query = query.Where(p =>
+                    p.Title.Contains(term, StringComparison.OrdinalIgnoreCase) ||
+                    p.Location.Contains(term, StringComparison.OrdinalIgnoreCase) ||
+                    p.City.Contains(term, StringComparison.OrdinalIgnoreCase) ||
+                    p.Description.Contains(term, StringComparison.OrdinalIgnoreCase) ||
+                    p.Category.Contains(term, StringComparison.OrdinalIgnoreCase)
+                );
+            }
+
+            return query;
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        _allProperties = await ContentService.GetProjectsAsync();
+    }
+
+    private void ResetFilters()
+    {
+        _selectedCategory = "All";
+        _selectedStatus = "All";
+        _searchTerm = string.Empty;
+    }
+
+    private void HandlePropertyInquire(PropertyProject property)
+    {
+        _preselectedPropertyType = property.Category;
+        _isQuoteModalOpen = true;
+    }
+}

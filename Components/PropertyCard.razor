@@ -1,0 +1,300 @@
+<div class="property-card luxury-card">
+    <!-- Image Header with Badges -->
+    <div class="property-image-wrapper">
+        <img src="@(string.IsNullOrWhiteSpace(Property.ImageUrl) ? "images/hero-bg.jpg" : Property.ImageUrl)" 
+             alt="@Property.Title" 
+             class="property-image" 
+             loading="lazy" />
+        <div class="property-overlay-badges">
+            <span class="badge-gold-solid">@Property.Category</span>
+            <span class="property-status-badge status-@Property.Status.ToLowerInvariant().Replace(" ", "-")">
+                @Property.Status
+            </span>
+        </div>
+        @if (Property.ProjectedYieldPercent > 0)
+        {
+            <div class="property-yield-badge">
+                <span class="yield-num">@Property.ProjectedYieldPercent.ToString("0.0")%</span>
+                <span class="yield-lbl">Proj. Yield</span>
+            </div>
+        }
+    </div>
+
+    <!-- Content Body -->
+    <div class="property-content">
+        <div class="property-pricing">
+            <div>
+                <span class="rent-amount">@Property.FormattedRent</span>
+                <span class="rent-label">Monthly Target</span>
+            </div>
+            <div class="valuation-block">
+                <span class="val-amount">@Property.FormattedValuation</span>
+                <span class="val-label">Valuation</span>
+            </div>
+        </div>
+
+        <h3 class="property-title">@Property.Title</h3>
+        <p class="property-location">
+            <span class="loc-icon">📍</span>
+            <span>@Property.Location, @Property.City</span>
+        </p>
+
+        <p class="property-desc">@Property.Description</p>
+
+        <!-- Specifications Grid -->
+        <div class="property-specs">
+            @if (Property.Bedrooms > 0)
+            {
+                <div class="spec-item" title="Bedrooms">
+                    <span class="spec-icon">🛏️</span>
+                    <span>@Property.Bedrooms Beds</span>
+                </div>
+            }
+            @if (Property.Bathrooms > 0)
+            {
+                <div class="spec-item" title="Bathrooms">
+                    <span class="spec-icon">🚿</span>
+                    <span>@Property.Bathrooms Baths</span>
+                </div>
+            }
+            <div class="spec-item" title="Square Footage">
+                <span class="spec-icon">📐</span>
+                <span>@Property.SquareFeet.ToString("N0") sq ft</span>
+            </div>
+            @if (Property.ParkingSpaces > 0)
+            {
+                <div class="spec-item" title="Parking Spaces">
+                    <span class="spec-icon">🚗</span>
+                    <span>@Property.ParkingSpaces Garage</span>
+                </div>
+            }
+        </div>
+
+        <!-- Amenities Preview -->
+        @if (Property.Amenities.Any())
+        {
+            <div class="amenities-tags">
+                @foreach (var amenity in Property.Amenities.Take(3))
+                {
+                    <span class="amenity-tag">@amenity</span>
+                }
+                @if (Property.Amenities.Count > 3)
+                {
+                    <span class="amenity-tag">+@(Property.Amenities.Count - 3) more</span>
+                }
+            </div>
+        }
+
+        <!-- Card Action -->
+        <div class="property-card-action">
+            <button type="button" class="btn btn-navy btn-sm w-100" @onclick="() => OnInquire.InvokeAsync(Property)">
+                <span>Inquire About Property</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<style>
+.property-card {
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border: 1px solid var(--border-light);
+}
+
+.property-image-wrapper {
+    position: relative;
+    height: 240px;
+    overflow: hidden;
+    background-color: var(--primary-navy);
+}
+
+.property-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.property-card:hover .property-image {
+    transform: scale(1.05);
+}
+
+.property-overlay-badges {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    right: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 2;
+}
+
+.property-status-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-sm);
+    letter-spacing: 0.05em;
+}
+
+.status-available {
+    background-color: rgba(16, 185, 129, 0.9);
+    color: #FFFFFF;
+}
+
+.status-leased {
+    background-color: rgba(59, 130, 246, 0.9);
+    color: #FFFFFF;
+}
+
+.status-under-management {
+    background-color: rgba(11, 31, 58, 0.9);
+    color: var(--luxury-gold);
+    border: 1px solid var(--luxury-gold-border);
+}
+
+.property-yield-badge {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    background: rgba(11, 31, 58, 0.88);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--luxury-gold-border);
+    padding: 0.35rem 0.75rem;
+    border-radius: var(--radius-md);
+    text-align: right;
+    color: #FFFFFF;
+}
+
+.yield-num {
+    display: block;
+    font-weight: 800;
+    color: var(--luxury-gold);
+    font-size: 0.95rem;
+    line-height: 1;
+}
+
+.yield-lbl {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--soft-blue);
+}
+
+.property-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.property-pricing {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.rent-amount {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--primary-navy);
+    display: block;
+    line-height: 1.1;
+}
+
+.rent-label, .val-label {
+    font-size: 0.72rem;
+    color: #64748B;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.valuation-block {
+    text-align: right;
+}
+
+.val-amount {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--luxury-gold-dark);
+    display: block;
+}
+
+.property-title {
+    font-size: 1.2rem;
+    margin-bottom: 0.35rem;
+}
+
+.property-location {
+    font-size: 0.85rem;
+    color: #64748B;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-bottom: 0.9rem;
+}
+
+.property-desc {
+    font-size: 0.88rem;
+    color: #475569;
+    line-height: 1.5;
+    margin-bottom: 1.25rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.property-specs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 0.5rem;
+    padding: 0.85rem;
+    background-color: var(--off-white);
+    border-radius: var(--radius-md);
+    margin-bottom: 1rem;
+}
+
+.spec-item {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--primary-navy);
+}
+
+.amenities-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1.5rem;
+    margin-top: auto;
+}
+
+.amenity-tag {
+    font-size: 0.75rem;
+    background-color: rgba(197, 168, 128, 0.1);
+    color: var(--luxury-gold-dark);
+    padding: 0.2rem 0.55rem;
+    border-radius: var(--radius-full);
+    font-weight: 500;
+}
+
+.property-card-action {
+    margin-top: 0.5rem;
+}
+</style>
+
+@code {
+    [Parameter] public PropertyProject Property { get; set; } = new();
+    [Parameter] public EventCallback<PropertyProject> OnInquire { get; set; }
+}

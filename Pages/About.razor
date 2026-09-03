@@ -1,0 +1,145 @@
+@page "/about"
+@inject IContentService ContentService
+
+<PageTitle>About BlueGridSolutions | Heritage, Mission & Leadership</PageTitle>
+
+<HeadContent>
+    <meta name="description" content="Discover the story, mission, and leadership team behind BlueGridSolutions, California's premier luxury property management and real estate investment firm." />
+</HeadContent>
+
+<!-- About Hero Banner -->
+<section class="page-hero-section bg-property-hero section-dark">
+    <div class="container text-center animate-fade-in-up">
+        <span class="badge-gold">Our Heritage & Leadership</span>
+        <h1 style="color: #FFFFFF; margin-bottom: 1.25rem;">Stewardship Built On Precision & Integrity</h1>
+        <p class="page-hero-lead">
+            For over a decade, BlueGridSolutions has redefined property management by pairing bespoke concierge care with institutional financial rigor.
+        </p>
+    </div>
+</section>
+
+<!-- Company Story Section -->
+<section class="section story-section">
+    <div class="container">
+        <div class="story-grid">
+            <div class="story-text-col">
+                <span class="badge-gold">Our Foundation</span>
+                <h2>The BlueGrid Story</h2>
+                <div class="story-body">
+                    <p>
+                        @(_company?.Story ?? "Founded with a vision to transform property management, BlueGridSolutions combines high-touch concierge service with rigorous asset management.")
+                    </p>
+                    <p>
+                        Our multidisciplinary team comprises Certified Property Managers (CPM), licensed commercial brokers, CPAs, and technical facilities specialists. We operate on a foundation of fiduciary transparency, treating every managed property as our own capital investment.
+                    </p>
+                </div>
+
+                <div class="story-highlights">
+                    <div class="highlight-item">
+                        <span class="highlight-num">100%</span>
+                        <span class="highlight-lbl">Fiduciary Alignment</span>
+                    </div>
+                    <div class="highlight-item">
+                        <span class="highlight-num">0%</span>
+                        <span class="highlight-lbl">Hidden Surcharges</span>
+                    </div>
+                    <div class="highlight-item">
+                        <span class="highlight-num">24/7</span>
+                        <span class="highlight-lbl">Technical Dispatch</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="story-card-col">
+                <div class="luxury-card story-focus-card">
+                    <h3 style="color: var(--primary-navy); margin-bottom: 1rem;">Mission Statement</h3>
+                    <p style="color: #475569; margin-bottom: 2rem; font-size: 0.95rem;">
+                        @(_company?.Mission ?? "To maximize real estate asset returns and protect investor wealth through uncompromising property care and transparent stewardship.")
+                    </p>
+
+                    <h3 style="color: var(--primary-navy); margin-bottom: 1rem;">Vision</h3>
+                    <p style="color: #475569; margin: 0; font-size: 0.95rem;">
+                        @(_company?.Vision ?? "To be the premier benchmark in luxury property management and maintenance coordination.")
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Core Values Section -->
+@if (_company?.CoreValues != null && _company.CoreValues.Any())
+{
+    <section class="section values-section bg-gold-subtle">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="badge-gold">Guiding Principles</span>
+                <h2>Our Core Values</h2>
+                <p class="section-lead">
+                    The non-negotiable principles that drive every decision across our property portfolios.
+                </p>
+            </div>
+
+            <div class="values-grid">
+                @for (int i = 0; i < _company.CoreValues.Count; i++)
+                {
+                    var val = _company.CoreValues[i];
+                    <div class="luxury-card value-item-card">
+                        <span class="val-index">0@(i + 1)</span>
+                        <h3 class="val-title">@val</h3>
+                        <p class="val-text">
+                            We execute every maintenance SLA, lease agreement, and financial disbursement according to this fundamental benchmark.
+                        </p>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+}
+
+<!-- Team Showcase Section -->
+<section class="section team-section">
+    <div class="container">
+        <div class="section-header text-center">
+            <span class="badge-gold">Executive Leadership</span>
+            <h2>Meet Our Asset Strategists</h2>
+            <p class="section-lead">
+                Decades of combined experience in luxury real estate, capital markets, and facility engineering.
+            </p>
+        </div>
+
+        <div class="team-grid">
+            @foreach (var member in _team)
+            {
+                <TeamCard Member="@member" />
+            }
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action Banner -->
+<section class="section bg-navy-gradient section-dark cta-banner-section">
+    <div class="container text-center">
+        <span class="badge-gold">Partner With Us</span>
+        <h2 style="color: #FFFFFF; margin-bottom: 1rem;">Ready For Uncompromising Property Care?</h2>
+        <p style="color: var(--soft-blue); max-width: 600px; margin: 0 auto 2rem auto;">
+            Connect with our managing principals for a confidential portfolio audit and yield enhancement analysis.
+        </p>
+        <button type="button" class="btn btn-gold btn-lg" @onclick="() => _isQuoteModalOpen = true">
+            <span>Request Management Proposal</span>
+        </button>
+    </div>
+</section>
+
+<QuoteModal @bind-IsOpen="_isQuoteModalOpen" />
+@code {
+    private CompanyInfo? _company;
+    private List<TeamMember> _team = new();
+    private bool _isQuoteModalOpen = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _company = await ContentService.GetCompanyInfoAsync();
+        _team = await ContentService.GetTeamMembersAsync();
+    }
+}

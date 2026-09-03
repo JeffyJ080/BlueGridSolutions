@@ -1,0 +1,205 @@
+<div class="faq-accordion-wrapper">
+    @if (ShowCategoryFilter)
+    {
+        <div class="faq-category-pills">
+            @foreach (var cat in _categories)
+            {
+                <button type="button" 
+                        class="faq-cat-pill @(_selectedCategory == cat ? "active" : "")" 
+                        @onclick="() => FilterCategory(cat)">
+                    @cat
+                </button>
+            }
+        </div>
+    }
+
+    <div class="faq-items-list">
+        @foreach (var faq in FilteredFaqs)
+        {
+            var isExpanded = _expandedIds.Contains(faq.Id);
+            <div class="faq-item luxury-card @(isExpanded ? "expanded" : "")" key="@faq.Id">
+                <button type="button" class="faq-question-btn" @onclick="() => ToggleFaq(faq.Id)" aria-expanded="@isExpanded">
+                    <div class="faq-q-text">
+                        <span class="faq-badge">@faq.Category</span>
+                        <h4 class="faq-question">@faq.Question</h4>
+                    </div>
+                    <span class="faq-toggle-icon @(isExpanded ? "icon-open" : "")">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </span>
+                </button>
+                @if (isExpanded)
+                {
+                    <div class="faq-answer-panel animate-fade-in">
+                        <p class="faq-answer">@faq.Answer</p>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+.faq-accordion-wrapper {
+    width: 100%;
+}
+
+.faq-category-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin-bottom: 2rem;
+    justify-content: center;
+}
+
+.faq-cat-pill {
+    background-color: var(--pure-white);
+    border: 1px solid var(--border-light);
+    color: #475569;
+    font-size: 0.88rem;
+    font-weight: 600;
+    padding: 0.5rem 1.15rem;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.faq-cat-pill:hover {
+    border-color: var(--luxury-gold);
+    color: var(--primary-navy);
+}
+
+.faq-cat-pill.active {
+    background: linear-gradient(135deg, var(--primary-navy) 0%, var(--secondary-navy) 100%);
+    color: var(--pure-white);
+    border-color: var(--primary-navy);
+    box-shadow: 0 4px 12px rgba(11, 31, 58, 0.15);
+}
+
+.faq-items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.faq-item {
+    padding: 0;
+    overflow: hidden;
+    transition: all var(--transition-normal);
+}
+
+.faq-item.expanded {
+    border-color: var(--luxury-gold-border);
+    box-shadow: var(--shadow-md);
+}
+
+.faq-question-btn {
+    width: 100%;
+    padding: 1.5rem 1.75rem;
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+    cursor: pointer;
+    text-align: left;
+}
+
+.faq-q-text {
+    flex: 1;
+}
+
+.faq-badge {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--luxury-gold-dark);
+    display: block;
+    margin-bottom: 0.35rem;
+}
+
+.faq-question {
+    font-size: 1.05rem;
+    color: var(--primary-navy);
+    line-height: 1.4;
+    margin: 0;
+}
+
+.faq-toggle-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-full);
+    background-color: var(--off-white);
+    color: var(--primary-navy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform var(--transition-fast), background-color var(--transition-fast);
+    flex-shrink: 0;
+}
+
+.faq-toggle-icon.icon-open {
+    transform: rotate(180deg);
+    background-color: var(--luxury-gold);
+    color: var(--dark-navy);
+}
+
+.faq-answer-panel {
+    padding: 0 1.75rem 1.75rem 1.75rem;
+    border-top: 1px solid rgba(226, 232, 240, 0.6);
+}
+
+.faq-answer {
+    font-size: 0.95rem;
+    color: #475569;
+    line-height: 1.65;
+    margin: 1.25rem 0 0 0;
+}
+</style>
+
+@code {
+    [Parameter] public List<FaqItem> Faqs { get; set; } = new();
+    [Parameter] public bool ShowCategoryFilter { get; set; } = true;
+
+    private string _selectedCategory = "All";
+    private readonly HashSet<string> _expandedIds = new();
+
+    private readonly List<string> _categories = new()
+    {
+        "All", "Property Management", "Tenant Placement", "Maintenance SLAs", "Fees & Pricing"
+    };
+
+    private IEnumerable<FaqItem> FilteredFaqs =>
+        _selectedCategory == "All"
+            ? Faqs
+            : Faqs.Where(f => string.Equals(f.Category, _selectedCategory, StringComparison.OrdinalIgnoreCase));
+
+    protected override void OnInitialized()
+    {
+        // Expand first FAQ by default
+        if (Faqs.Any())
+        {
+            _expandedIds.Add(Faqs.First().Id);
+        }
+    }
+
+    private void ToggleFaq(string id)
+    {
+        if (_expandedIds.Contains(id))
+        {
+            _expandedIds.Remove(id);
+        }
+        else
+        {
+            _expandedIds.Add(id);
+        }
+    }
+
+    private void FilterCategory(string category)
+    {
+        _selectedCategory = category;
+    }
+}
