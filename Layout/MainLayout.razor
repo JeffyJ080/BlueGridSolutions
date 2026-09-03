@@ -1,16 +1,24 @@
-﻿@inherits LayoutComponentBase
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
+@inherits LayoutComponentBase
 
-    <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
-        </div>
+<div class="site-wrapper">
+    <NavMenu OnOpenQuoteModal="OpenQuoteModal" />
 
-        <article class="content px-4">
-            @Body
-        </article>
+    <main class="site-main" role="main">
+        @Body
     </main>
+
+    <Footer />
+
+    <QuoteModal @bind-IsOpen="_isQuoteModalOpen" />
+    <ToastContainer />
+    <WhatsAppButton />
 </div>
+
+@code {
+    private bool _isQuoteModalOpen = false;
+
+    private void OpenQuoteModal()
+    {
+        _isQuoteModalOpen = true;
+    }
+}

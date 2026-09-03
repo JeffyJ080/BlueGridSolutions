@@ -1,39 +1,111 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">BlueGridSolutions</a>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </div>
-</div>
+@inject NavigationManager Navigation
 
-<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
+<header class="luxury-navbar @(_isScrolled ? "navbar-scrolled" : "")">
+    <div class="container navbar-container">
+        <!-- Brand Logo -->
+        <NavLink href="" class="navbar-brand">
+            <Logo IsDarkTheme="true" Width="185" />
+        </NavLink>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="desktop-nav">
+            <NavLink href="" class="nav-link" Match="NavLinkMatch.All">
+                <span>Home</span>
             </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Counter
+            <NavLink href="about" class="nav-link">
+                <span>About</span>
             </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="weather">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Weather
+            <NavLink href="services" class="nav-link">
+                <span>Services</span>
             </NavLink>
+            <NavLink href="projects" class="nav-link">
+                <span>Projects</span>
+            </NavLink>
+            <NavLink href="contact" class="nav-link">
+                <span>Contact</span>
+            </NavLink>
+        </nav>
+
+        <!-- Header Actions -->
+        <div class="header-actions">
+            <a href="tel:+18005842970" class="concierge-phone-link d-none-mobile">
+                <span class="phone-icon">📞</span>
+                <span class="phone-text">+1 (800) 584-2970</span>
+            </a>
+            <button type="button" class="btn btn-gold btn-sm" @onclick="OpenQuoteModal">
+                <span>Request Quote</span>
+            </button>
+            <button type="button" class="mobile-toggle-btn" @onclick="ToggleMobileMenu" aria-label="Toggle navigation menu">
+                <span class="hamburger-bar @(_isMobileOpen ? "open" : "")"></span>
+            </button>
         </div>
-    </nav>
-</div>
+    </div>
+</header>
+
+<!-- Mobile Navigation Drawer & Backdrop -->
+@if (_isMobileOpen)
+{
+    <div class="mobile-drawer-backdrop animate-fade-in" @onclick="CloseMobileMenu"></div>
+    <div class="mobile-drawer @(_isMobileOpen ? "drawer-open" : "") animate-fade-in-down">
+        <div class="drawer-header">
+            <Logo IsDarkTheme="true" Width="170" />
+            <button type="button" class="drawer-close-btn" @onclick="CloseMobileMenu" aria-label="Close menu">&times;</button>
+        </div>
+
+        <nav class="mobile-nav-links">
+            <NavLink href="" class="mobile-nav-link" Match="NavLinkMatch.All" @onclick="CloseMobileMenu">
+                <span>Home Overview</span>
+            </NavLink>
+            <NavLink href="about" class="mobile-nav-link" @onclick="CloseMobileMenu">
+                <span>Company & Team</span>
+            </NavLink>
+            <NavLink href="services" class="mobile-nav-link" @onclick="CloseMobileMenu">
+                <span>Management Services</span>
+            </NavLink>
+            <NavLink href="projects" class="mobile-nav-link" @onclick="CloseMobileMenu">
+                <span>Property Portfolio</span>
+            </NavLink>
+            <NavLink href="contact" class="mobile-nav-link" @onclick="CloseMobileMenu">
+                <span>Investor Contact</span>
+            </NavLink>
+        </nav>
+
+        <div class="drawer-footer">
+            <button type="button" class="btn btn-gold btn-lg w-100" @onclick="OpenQuoteFromMobile">
+                <span>Request Bespoke Quote</span>
+            </button>
+            <div class="drawer-contact-info">
+                <p>24/7 Concierge Hotline</p>
+                <a href="tel:+18005842970" class="drawer-phone">+1 (800) 584-2970</a>
+            </div>
+        </div>
+    </div>
+}
 
 @code {
-    private bool collapseNavMenu = true;
+    [Parameter] public EventCallback OnOpenQuoteModal { get; set; }
 
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+    private bool _isMobileOpen = false;
+    private bool _isScrolled = false;
 
-    private void ToggleNavMenu()
+    private void ToggleMobileMenu()
     {
-        collapseNavMenu = !collapseNavMenu;
+        _isMobileOpen = !_isMobileOpen;
+    }
+
+    private void CloseMobileMenu()
+    {
+        _isMobileOpen = false;
+    }
+
+    private async Task OpenQuoteModal()
+    {
+        await OnOpenQuoteModal.InvokeAsync();
+    }
+
+    private async Task OpenQuoteFromMobile()
+    {
+        CloseMobileMenu();
+        await OnOpenQuoteModal.InvokeAsync();
     }
 }

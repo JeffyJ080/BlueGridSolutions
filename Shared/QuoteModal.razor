@@ -1,0 +1,149 @@
+@inject INotificationService NotificationService
+
+@if (IsOpen)
+{
+    <div class="modal-backdrop animate-modal-backdrop" @onclick="CloseModal">
+        <div class="modal-dialog animate-modal-content" @onclick:stopPropagation="true" role="dialog" aria-modal="true" aria-labelledby="quote-modal-title">
+            <div class="modal-header">
+                <div>
+                    <span class="badge-gold">Tailored Stewardship</span>
+                    <h3 id="quote-modal-title" style="margin: 0; color: var(--primary-navy);">Request a Bespoke Proposal</h3>
+                </div>
+                <button type="button" class="modal-close-btn" @onclick="CloseModal" aria-label="Close modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <p style="font-size: 0.9rem; color: #64748B; margin-bottom: 1.5rem;">
+                    Provide your asset details below to receive a comprehensive management proposal, projected yield analysis, and customized SLA schedule.
+                </p>
+
+                <EditForm Model="@_model" OnValidSubmit="HandleSubmit">
+                    <DataAnnotationsValidator />
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-group">
+                            <label class="form-label" for="quote-name">Full Name *</label>
+                            <InputText id="quote-name" class="form-input" @bind-Value="_model.FullName" placeholder="e.g. Lorde Harrison" />
+                            <ValidationMessage For="@(() => _model.FullName)" class="validation-message" />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="quote-email">Email Address *</label>
+                            <InputText id="quote-email" class="form-input" @bind-Value="_model.Email" placeholder="harrison@estate.com" />
+                            <ValidationMessage For="@(() => _model.Email)" class="validation-message" />
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-group">
+                            <label class="form-label" for="quote-phone">Phone Number *</label>
+                            <InputText id="quote-phone" class="form-input" @bind-Value="_model.Phone" placeholder="+1 (555) 019-2834" />
+                            <ValidationMessage For="@(() => _model.Phone)" class="validation-message" />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="quote-property-type">Property Type</label>
+                            <InputSelect id="quote-property-type" class="form-select" @bind-Value="_model.PropertyType">
+                                <option value="Luxury Residential">Luxury Residential</option>
+                                <option value="Executive Villa">Executive Villa</option>
+                                <option value="Commercial Asset">Commercial Asset</option>
+                                <option value="Modern Apartment">Modern Apartment</option>
+                                <option value="Portfolio (Multi-Unit)">Portfolio (Multi-Unit)</option>
+                            </InputSelect>
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 1rem;">
+                        <div class="form-group">
+                            <label class="form-label" for="quote-service">Primary Service Required</label>
+                            <InputSelect id="quote-service" class="form-select" @bind-Value="_model.ServiceRequired">
+                                <option value="Full-Portfolio Property Management">Full-Portfolio Property Management</option>
+                                <option value="High-Yield Tenant Placement">High-Yield Tenant Placement</option>
+                                <option value="24/7 Preventative Maintenance">24/7 Preventative Maintenance</option>
+                                <option value="Financial Reporting & Asset Valuation">Financial Reporting & Asset Valuation</option>
+                                <option value="Commercial Facility Management">Commercial Facility Management</option>
+                                <option value="Capital Improvement & Renovation">Capital Improvement & Renovation</option>
+                            </InputSelect>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="quote-units">Number of Units</label>
+                            <InputNumber id="quote-units" class="form-input" @bind-Value="_model.NumberOfUnits" min="1" max="100" />
+                            <ValidationMessage For="@(() => _model.NumberOfUnits)" class="validation-message" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="quote-valuation">Estimated Portfolio Valuation ($ USD)</label>
+                        <InputNumber id="quote-valuation" class="form-input" @bind-Value="_model.EstimatedValuation" placeholder="e.g. 3500000" />
+                        <ValidationMessage For="@(() => _model.EstimatedValuation)" class="validation-message" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="quote-notes">Additional Portfolio Requirements / Location Details</label>
+                        <InputTextArea id="quote-notes" class="form-textarea" @bind-Value="_model.AdditionalNotes" rows="3" placeholder="Specify locations, current occupancy, or specific maintenance requirements..." />
+                        <ValidationMessage For="@(() => _model.AdditionalNotes)" class="validation-message" />
+                    </div>
+
+                    <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 1.5rem;">
+                        <button type="button" class="btn btn-outline-gold" @onclick="CloseModal">Cancel</button>
+                        <button type="submit" class="btn btn-gold" disabled="@_isSubmitting">
+                            @if (_isSubmitting)
+                            {
+                                <span>Generating Proposal...</span>
+                            }
+                            else
+                            {
+                                <span>Submit Quote Request</span>
+                            }
+                        </button>
+                    </div>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public bool IsOpen { get; set; }
+    [Parameter] public EventCallback<bool> IsOpenChanged { get; set; }
+    [Parameter] public string? PreselectedService { get; set; }
+    [Parameter] public string? PreselectedPropertyType { get; set; }
+
+    private QuoteRequestModel _model = new();
+    private bool _isSubmitting = false;
+
+    protected override void OnParametersSet()
+    {
+        if (!string.IsNullOrWhiteSpace(PreselectedService))
+        {
+            _model.ServiceRequired = PreselectedService;
+        }
+
+        if (!string.IsNullOrWhiteSpace(PreselectedPropertyType))
+        {
+            _model.PropertyType = PreselectedPropertyType;
+        }
+    }
+
+    private async Task CloseModal()
+    {
+        IsOpen = false;
+        await IsOpenChanged.InvokeAsync(false);
+    }
+
+    private async Task HandleSubmit()
+    {
+        _isSubmitting = true;
+        await Task.Delay(400); // Simulate client-side confirmation delay
+
+        NotificationService.ShowSuccess(
+            $"Thank you, {_model.FullName}. Your request for {_model.PropertyType} ({_model.ServiceRequired}) has been received. Our senior asset strategist will connect with you within 2 business hours.",
+            "Proposal Request Confirmed"
+        );
+
+        _model = new QuoteRequestModel();
+        _isSubmitting = false;
+        await CloseModal();
+    }
+}

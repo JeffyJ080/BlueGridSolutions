@@ -1,0 +1,32 @@
+<div class="brand-logo @(IsDarkTheme ? "logo-dark" : "logo-light") @CustomClass" style="max-width: @(Width)px;">
+    <svg viewBox="0 0 240 54" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-svg">
+        <!-- Luxury Geometric Grid Shield/Monogram -->
+        <g class="logo-mark">
+            <rect x="2" y="2" width="50" height="50" rx="8" fill="@(IsDarkTheme ? "#132B50" : "#0B1F3A")" stroke="#C5A880" stroke-width="1.5" />
+            <!-- Interior Grid Elements -->
+            <path d="M12 14H42M12 27H42M12 40H42" stroke="@(IsDarkTheme ? "#D6E4FF" : "#F8F9FA")" stroke-width="1" stroke-opacity="0.4" />
+            <path d="M14 12V42M27 12V42M40 12V42" stroke="@(IsDarkTheme ? "#D6E4FF" : "#F8F9FA")" stroke-width="1" stroke-opacity="0.4" />
+            <!-- Golden Architectural Accent Motif -->
+            <path d="M20 34L27 18L34 34" stroke="#C5A880" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+            <circle cx="27" cy="18" r="3" fill="#C5A880" />
+            <rect x="23" y="32" width="8" height="2" rx="1" fill="#C5A880" />
+        </g>
+
+        <!-- Brand Typography -->
+        <g class="logo-text">
+            <text x="64" y="30" font-family="'Cinzel', Georgia, serif" font-size="20" font-weight="700" letter-spacing="2.5" fill="@(IsDarkTheme ? "#FFFFFF" : "#0B1F3A")">BLUEGRID</text>
+            <text x="65" y="44" font-family="'Plus Jakarta Sans', sans-serif" font-size="9" font-weight="600" letter-spacing="4" fill="#C5A880">SOLUTIONS</text>
+        </g>
+    </svg>
+    @if (ShowTagline)
+    {
+        <div class="logo-subtext @(IsDarkTheme ? "text-light-muted" : "text-muted")">Luxury Property Stewardship</div>
+    }
+</div>
+
+@code {
+    [Parameter] public bool IsDarkTheme { get; set; } = false;
+    [Parameter] public string CustomClass { get; set; } = string.Empty;
+    [Parameter] public int Width { get; set; } = 190;
+    [Parameter] public bool ShowTagline { get; set; } = false;
+}
