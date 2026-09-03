@@ -1,0 +1,32 @@
+## Task, Assignment & Planning Specification Files
+Christiaan Opdrag.txt
+*Opdrag*
+*opdrag*
+PLAN.md
+*PLAN*
+*plan.md*
+
+## .NET Core / Build Artifacts
+**/bin/
+**/obj/
+*.user
+*.userosscache
+*.sln.docstates
+
+## Visual Studio / IDE Files
+.vs/
+.vscode/
+*.suo
+*.userprefs
+*.launchSettings.json.user
+
+## OS Generated Files
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+## Logs & Temp Files
+*.log
+*.tmp
+/tmp/
