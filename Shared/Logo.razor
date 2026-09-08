@@ -1,5 +1,5 @@
-<div class="brand-logo @(IsDarkTheme ? "logo-dark" : "logo-light") @CustomClass" style="max-width: @(Width)px;">
-    <svg viewBox="0 0 240 54" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-svg">
+<div class="brand-logo @(IsDarkTheme ? "logo-dark" : "logo-light") @CustomClass" style="width: @(Width)px; max-width: 100%; display: inline-flex; flex-direction: column; flex-shrink: 0;">
+    <svg viewBox="0 0 240 54" width="100%" height="auto" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-svg" style="display: block; width: 100%; height: auto;">
         <!-- Luxury Geometric Grid Shield/Monogram -->
         <g class="logo-mark">
             <rect x="2" y="2" width="50" height="50" rx="8" fill="@(IsDarkTheme ? "#132B50" : "#0B1F3A")" stroke="#C5A880" stroke-width="1.5" />
@@ -20,7 +20,7 @@
     </svg>
     @if (ShowTagline)
     {
-        <div class="logo-subtext @(IsDarkTheme ? "text-light-muted" : "text-muted")">Luxury Property Stewardship</div>
+        <div class="logo-subtext @(IsDarkTheme ? "text-light-muted" : "text-muted")" style="font-size: 0.72rem; color: var(--luxury-gold); margin-top: 2px;">Luxury Property Stewardship</div>
     }
 </div>
 
