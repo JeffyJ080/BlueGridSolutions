@@ -34,6 +34,32 @@
       "description": "Dedicated service to institutional owners, family offices, and private investors"
     }
   ],
+  "testimonials": [
+    {
+      "clientName": "Arthur Vance-Montgomery",
+      "clientTitle": "Managing Partner, Vance Capital Holdings",
+      "propertyManaged": "3 Luxury Coastal Villas ($14.2M Valuation)",
+      "quote": "BlueGridSolutions completely transformed our California residential holdings. Within 90 days, our net yield climbed from 4.8% to 6.9%, while tenant turnover dropped to zero. Their preventative maintenance SLAs are unmatched.",
+      "rating": 5,
+      "location": "Newport Beach, CA"
+    },
+    {
+      "clientName": "Elena Rostova",
+      "clientTitle": "Private Real Estate Investor",
+      "propertyManaged": "The Grand Azure Penthouse & 4 Executive Condos",
+      "quote": "The level of white-glove reporting and financial clarity is exceptional. I receive pristine monthly statements, zero unexpected vendor markups, and my properties remain in flawless showroom condition 365 days a year.",
+      "rating": 5,
+      "location": "Marina Bay, CA"
+    },
+    {
+      "clientName": "Marcus Sterling",
+      "clientTitle": "COO, Pacific Crest Assets LLC",
+      "propertyManaged": "Class-A Mixed-Use Plaza (8 Retail & 12 Residential Units)",
+      "quote": "Managing dual commercial retail leases and luxury residential units requires precision. BlueGrid's 2-hour SLA and proactive tenant screening protocols have given us total operational peace of mind.",
+      "rating": 5,
+      "location": "Santa Monica, CA"
+    }
+  ],
   "contact": {
     "email": "inquiries@bluegridsolutions.com",
     "phone": "+1 (800) 584-2970",

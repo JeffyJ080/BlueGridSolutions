@@ -135,6 +135,49 @@
     </div>
 </section>
 
+<!-- Client & Investor Testimonials -->
+@if (_company?.Testimonials != null && _company.Testimonials.Any())
+{
+    <section class="section testimonials-section bg-gold-subtle">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="badge-gold">Client Perspectives</span>
+                <h2>Endorsed by Discerning Investors</h2>
+                <p class="section-lead">
+                    Discover how our bespoke property management models protect capital and consistently outperform market benchmarks.
+                </p>
+            </div>
+
+            <div class="testimonials-grid">
+                @foreach (var testimonial in _company.Testimonials)
+                {
+                    <div class="luxury-card testimonial-card animate-fade-in">
+                        <div class="testimonial-rating">
+                            @for (int s = 0; s < testimonial.Rating; s++)
+                            {
+                                <span class="star-icon">★</span>
+                            }
+                        </div>
+                        <blockquote class="testimonial-quote">
+                            "@testimonial.Quote"
+                        </blockquote>
+                        <div class="testimonial-author">
+                            <div class="author-monogram">
+                                @(string.IsNullOrWhiteSpace(testimonial.ClientName) ? "B" : testimonial.ClientName.Substring(0, 1))
+                            </div>
+                            <div class="author-info">
+                                <h4 class="author-name">@testimonial.ClientName</h4>
+                                <p class="author-title">@testimonial.ClientTitle</p>
+                                <span class="author-asset">@testimonial.PropertyManaged • @testimonial.Location</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+}
+
 <!-- Retail & Commercial Advisory Callout Section -->
 <section class="section bg-property-retail section-dark cta-banner-section">
     <div class="container">

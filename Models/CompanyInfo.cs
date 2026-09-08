@@ -10,8 +10,19 @@ public class CompanyInfo
     public string Vision { get; set; } = string.Empty;
     public List<string> CoreValues { get; set; } = new();
     public List<CompanyStat> KeyMetrics { get; set; } = new();
+    public List<TestimonialItem> Testimonials { get; set; } = new();
     public ContactDetails Contact { get; set; } = new();
     public SocialLinks Socials { get; set; } = new();
+}
+
+public class TestimonialItem
+{
+    public string ClientName { get; set; } = string.Empty;
+    public string ClientTitle { get; set; } = string.Empty;
+    public string PropertyManaged { get; set; } = string.Empty;
+    public string Quote { get; set; } = string.Empty;
+    public int Rating { get; set; } = 5;
+    public string Location { get; set; } = string.Empty;
 }
 
 public class CompanyStat

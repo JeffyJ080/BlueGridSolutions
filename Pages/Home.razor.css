@@ -145,10 +145,84 @@
     flex-wrap: wrap;
 }
 
-.services-grid, .properties-grid {
+.services-grid, .properties-grid, .testimonials-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
+}
+
+.testimonial-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 2.25rem;
+    position: relative;
+    border: 1px solid var(--border-light);
+}
+
+.testimonial-rating {
+    display: flex;
+    gap: 0.25rem;
+    color: var(--luxury-gold);
+    font-size: 1.1rem;
+    margin-bottom: 1.25rem;
+}
+
+.testimonial-quote {
+    font-size: 0.95rem;
+    color: #475569;
+    line-height: 1.65;
+    font-style: italic;
+    margin: 0 0 1.75rem 0;
+    flex: 1;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border-light);
+}
+
+.author-monogram {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-full);
+    background: linear-gradient(135deg, var(--primary-navy) 0%, var(--secondary-navy) 100%);
+    border: 1.5px solid var(--luxury-gold);
+    color: var(--luxury-gold);
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.author-info {
+    flex: 1;
+}
+
+.author-name {
+    font-size: 1rem;
+    color: var(--primary-navy);
+    margin: 0 0 0.2rem 0;
+    font-weight: 700;
+}
+
+.author-title {
+    font-size: 0.8rem;
+    color: var(--luxury-gold-dark);
+    font-weight: 600;
+    margin: 0 0 0.25rem 0;
+}
+
+.author-asset {
+    font-size: 0.75rem;
+    color: #94A3B8;
+    display: block;
 }
 
 .cta-banner-section {
