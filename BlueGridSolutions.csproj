@@ -18,8 +18,8 @@
           AfterTargets="GenerateMSBuildEditorConfigFileCore" 
           BeforeTargets="CoreCompile"
           Condition="$([MSBuild]::IsOSPlatform('Linux'))">
-    <Exec Command="sed -i -E 's|\[.*[/\\]workspace[/\\]|[/workspace/|g' &quot;$(GeneratedMSBuildEditorConfigFile)&quot;" Condition="Exists('$(GeneratedMSBuildEditorConfigFile)')" />
     <Exec Command="sed -i 's|\\|/|g' &quot;$(GeneratedMSBuildEditorConfigFile)&quot;" Condition="Exists('$(GeneratedMSBuildEditorConfigFile)')" />
+    <Exec Command="sed -i -E 's|\[.*workspace/|[/workspace/|g' &quot;$(GeneratedMSBuildEditorConfigFile)&quot;" Condition="Exists('$(GeneratedMSBuildEditorConfigFile)')" />
   </Target>
 
 </Project>
