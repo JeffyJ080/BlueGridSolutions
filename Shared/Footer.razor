@@ -5,7 +5,7 @@
         <div class="footer-grid">
             <!-- Brand Column -->
             <div class="footer-col brand-col">
-                <Logo IsDarkTheme="true" Width="200" ShowTagline="true" />
+                <Logo IsDarkTheme="true" Width="150" ShowTagline="false" />
                 <p class="footer-desc">
                     @(_company?.ShortDescription ?? "BlueGridSolutions delivers world-class luxury property management, tenant placement, and preventative maintenance coordination for premier real estate assets.")
                 </p>
@@ -23,31 +23,31 @@
             </div>
 
             <!-- Quick Navigation -->
-            <div class="footer-col">
+            <div class="footer-col nav-col">
                 <h4 class="footer-heading">Navigation</h4>
                 <ul class="footer-links">
-                    <li><NavLink href="" Match="NavLinkMatch.All">Home Portfolio</NavLink></li>
-                    <li><NavLink href="about">Company & Team</NavLink></li>
-                    <li><NavLink href="services">Management Services</NavLink></li>
-                    <li><NavLink href="projects">Managed Assets</NavLink></li>
-                    <li><NavLink href="contact">Investor Contact</NavLink></li>
+                    <li><NavLink href="" Match="NavLinkMatch.All" class="footer-nav-link">Home Portfolio</NavLink></li>
+                    <li><NavLink href="about" class="footer-nav-link">Company & Team</NavLink></li>
+                    <li><NavLink href="services" class="footer-nav-link">Management Services</NavLink></li>
+                    <li><NavLink href="projects" class="footer-nav-link">Managed Assets</NavLink></li>
+                    <li><NavLink href="contact" class="footer-nav-link">Investor Contact</NavLink></li>
                 </ul>
             </div>
 
             <!-- Services -->
-            <div class="footer-col">
+            <div class="footer-col services-col">
                 <h4 class="footer-heading">Services</h4>
                 <ul class="footer-links">
-                    <li><NavLink href="services#full-property-management">Full Property Management</NavLink></li>
-                    <li><NavLink href="services#tenant-placement">Tenant Placement & Screening</NavLink></li>
-                    <li><NavLink href="services#maintenance-coordination">24/7 Preventative Care</NavLink></li>
-                    <li><NavLink href="services#financial-reporting">Financial Stewardship</NavLink></li>
-                    <li><NavLink href="services#commercial-facility">Commercial Facility Care</NavLink></li>
+                    <li><NavLink href="services#full-property-management" class="footer-nav-link">Full Property Management</NavLink></li>
+                    <li><NavLink href="services#tenant-placement" class="footer-nav-link">Tenant Placement & Screening</NavLink></li>
+                    <li><NavLink href="services#maintenance-coordination" class="footer-nav-link">24/7 Preventative Care</NavLink></li>
+                    <li><NavLink href="services#financial-reporting" class="footer-nav-link">Financial Stewardship</NavLink></li>
+                    <li><NavLink href="services#commercial-facility" class="footer-nav-link">Commercial Facility Care</NavLink></li>
                 </ul>
             </div>
 
             <!-- Contact & Office -->
-            <div class="footer-col">
+            <div class="footer-col contact-col">
                 <h4 class="footer-heading">Contact & Concierge</h4>
                 <div class="footer-contact-info">
                     <p class="contact-item">

@@ -3,109 +3,150 @@
 <header class="luxury-navbar @(_isScrolled ? "navbar-scrolled" : "")">
     <div class="container navbar-container">
         <!-- Brand Logo -->
-        <NavLink href="" class="navbar-brand">
-            <Logo IsDarkTheme="true" Width="185" />
+        <NavLink href="" class="navbar-brand" @onclick="CloseMenu">
+            <Logo IsDarkTheme="true" Width="150" />
         </NavLink>
 
-        <!-- Desktop Navigation Links -->
-        <nav class="desktop-nav">
-            <NavLink href="" class="nav-link" Match="NavLinkMatch.All">
-                <span>Home</span>
-            </NavLink>
-            <NavLink href="about" class="nav-link">
-                <span>About</span>
-            </NavLink>
-            <NavLink href="services" class="nav-link">
-                <span>Services</span>
-            </NavLink>
-            <NavLink href="projects" class="nav-link">
-                <span>Projects</span>
-            </NavLink>
-            <NavLink href="contact" class="nav-link">
-                <span>Contact</span>
-            </NavLink>
-        </nav>
-
-        <!-- Header Actions -->
+        <!-- Header Actions & Hamburger Toggle -->
         <div class="header-actions">
-            <a href="tel:+18005842970" class="concierge-phone-link d-none-mobile">
+            <a href="tel:+18005842970" class="concierge-phone-link d-none-xs">
                 <span class="phone-icon">📞</span>
                 <span class="phone-text">+1 (800) 584-2970</span>
             </a>
-            <button type="button" class="btn btn-gold btn-sm" @onclick="OpenQuoteModal">
+            <button type="button" class="btn btn-gold btn-sm" @onclick="HandleOpenQuote">
                 <span>Request Quote</span>
             </button>
-            <button type="button" class="mobile-toggle-btn" @onclick="ToggleMobileMenu" aria-label="Toggle navigation menu">
-                <span class="hamburger-bar @(_isMobileOpen ? "open" : "")"></span>
+            <button type="button" class="hamburger-menu-btn @(_isMenuOpen ? "btn-active" : "")" 
+                    @onclick="ToggleMenu" 
+                    aria-label="Toggle navigation dropdown menu" 
+                    aria-expanded="@_isMenuOpen">
+                <span class="hamburger-icon">
+                    <span class="bar bar-1 @(_isMenuOpen ? "open" : "")"></span>
+                    <span class="bar bar-2 @(_isMenuOpen ? "open" : "")"></span>
+                    <span class="bar bar-3 @(_isMenuOpen ? "open" : "")"></span>
+                </span>
+                <span class="menu-btn-label">@(_isMenuOpen ? "Close" : "Menu")</span>
             </button>
         </div>
     </div>
-</header>
 
-<!-- Mobile Navigation Drawer & Backdrop -->
-@if (_isMobileOpen)
-{
-    <div class="mobile-drawer-backdrop animate-fade-in" @onclick="CloseMobileMenu"></div>
-    <div class="mobile-drawer @(_isMobileOpen ? "drawer-open" : "") animate-fade-in-down">
-        <div class="drawer-header">
-            <Logo IsDarkTheme="true" Width="170" />
-            <button type="button" class="drawer-close-btn" @onclick="CloseMobileMenu" aria-label="Close menu">&times;</button>
-        </div>
+    <!-- Hamburger Drop Down Panel -->
+    @if (_isMenuOpen)
+    {
+        <div class="dropdown-backdrop animate-fade-in" @onclick="CloseMenu"></div>
+        <div class="hamburger-dropdown-panel animate-dropdown-slide" @onclick:stopPropagation="true">
+            <div class="container dropdown-container">
+                <div class="dropdown-columns">
+                    <!-- Column 1: Core Navigation Links with Badges -->
+                    <div class="dropdown-nav-col">
+                        <span class="dropdown-col-tag">Main Navigation</span>
+                        <nav class="dropdown-nav-list">
+                            <NavLink href="" class="dropdown-nav-item" Match="NavLinkMatch.All" @onclick="CloseMenu">
+                                <div class="nav-item-icon">🏛️</div>
+                                <div class="nav-item-content">
+                                    <span class="nav-item-title">Home Overview</span>
+                                    <span class="nav-item-desc">Luxury Asset Stewardship & Key Metrics</span>
+                                </div>
+                                <span class="nav-item-arrow">→</span>
+                            </NavLink>
 
-        <nav class="mobile-nav-links">
-            <NavLink href="" class="mobile-nav-link" Match="NavLinkMatch.All" @onclick="CloseMobileMenu">
-                <span>Home Overview</span>
-            </NavLink>
-            <NavLink href="about" class="mobile-nav-link" @onclick="CloseMobileMenu">
-                <span>Company & Team</span>
-            </NavLink>
-            <NavLink href="services" class="mobile-nav-link" @onclick="CloseMobileMenu">
-                <span>Management Services</span>
-            </NavLink>
-            <NavLink href="projects" class="mobile-nav-link" @onclick="CloseMobileMenu">
-                <span>Property Portfolio</span>
-            </NavLink>
-            <NavLink href="contact" class="mobile-nav-link" @onclick="CloseMobileMenu">
-                <span>Investor Contact</span>
-            </NavLink>
-        </nav>
+                            <NavLink href="about" class="dropdown-nav-item" @onclick="CloseMenu">
+                                <div class="nav-item-icon">⚜️</div>
+                                <div class="nav-item-content">
+                                    <span class="nav-item-title">Company & Leadership</span>
+                                    <span class="nav-item-desc">Our Heritage, Mission & Executive Strategists</span>
+                                </div>
+                                <span class="nav-item-arrow">→</span>
+                            </NavLink>
 
-        <div class="drawer-footer">
-            <button type="button" class="btn btn-gold btn-lg w-100" @onclick="OpenQuoteFromMobile">
-                <span>Request Bespoke Quote</span>
-            </button>
-            <div class="drawer-contact-info">
-                <p>24/7 Concierge Hotline</p>
-                <a href="tel:+18005842970" class="drawer-phone">+1 (800) 584-2970</a>
+                            <NavLink href="services" class="dropdown-nav-item" @onclick="CloseMenu">
+                                <div class="nav-item-icon">🛡️</div>
+                                <div class="nav-item-content">
+                                    <span class="nav-item-title">Management Services</span>
+                                    <span class="nav-item-desc">Preventative Care, Tenant Screening & FAQs</span>
+                                </div>
+                                <span class="nav-item-arrow">→</span>
+                            </NavLink>
+
+                            <NavLink href="projects" class="dropdown-nav-item" @onclick="CloseMenu">
+                                <div class="nav-item-icon">💎</div>
+                                <div class="nav-item-content">
+                                    <span class="nav-item-title">Property Portfolio</span>
+                                    <span class="nav-item-desc">Filterable Managed Villas, Plazas & Residences</span>
+                                </div>
+                                <span class="nav-item-arrow">→</span>
+                            </NavLink>
+
+                            <NavLink href="contact" class="dropdown-nav-item" @onclick="CloseMenu">
+                                <div class="nav-item-icon">📍</div>
+                                <div class="nav-item-content">
+                                    <span class="nav-item-title">Investor Concierge</span>
+                                    <span class="nav-item-desc">Confidential Inquiries & 24/7 SLA Dispatch</span>
+                                </div>
+                                <span class="nav-item-arrow">→</span>
+                            </NavLink>
+                        </nav>
+                    </div>
+
+                    <!-- Column 2: Quick Features & Concierge Contact -->
+                    <div class="dropdown-feature-col">
+                        <div class="feature-box">
+                            <span class="dropdown-col-tag">Interactive Feature</span>
+                            <h4 class="feature-title">Rental Yield & ROI Calculator</h4>
+                            <p class="feature-desc">
+                                Model expected rental yields, simulate vacancy buffers, and calculate net cash flow live.
+                            </p>
+                            <NavLink href="services#yield-calculator" class="btn btn-outline-gold btn-sm" @onclick="CloseMenu">
+                                <span>Open Live Calculator →</span>
+                            </NavLink>
+                        </div>
+
+                        <div class="dropdown-contact-card">
+                            <span class="badge-gold">24/7 Executive Dispatch</span>
+                            <p class="contact-lead">Direct hotline for active investors & property emergencies:</p>
+                            <div class="contact-links-stack">
+                                <a href="tel:+18005842970" class="contact-quick-link">
+                                    <span>📞 +1 (800) 584-2970</span>
+                                </a>
+                                <a href="mailto:inquiries@bluegridsolutions.com" class="contact-quick-link">
+                                    <span>✉️ inquiries@bluegridsolutions.com</span>
+                                </a>
+                            </div>
+                            <button type="button" class="btn btn-gold w-100" @onclick="HandleOpenQuoteFromDropdown" style="margin-top: 1rem;">
+                                <span>Request Bespoke Proposal</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-}
+    }
+</header>
 
 @code {
     [Parameter] public EventCallback OnOpenQuoteModal { get; set; }
 
-    private bool _isMobileOpen = false;
+    private bool _isMenuOpen = false;
     private bool _isScrolled = false;
 
-    private void ToggleMobileMenu()
+    private void ToggleMenu()
     {
-        _isMobileOpen = !_isMobileOpen;
+        _isMenuOpen = !_isMenuOpen;
     }
 
-    private void CloseMobileMenu()
+    private void CloseMenu()
     {
-        _isMobileOpen = false;
+        _isMenuOpen = false;
     }
 
-    private async Task OpenQuoteModal()
+    private async Task HandleOpenQuote()
     {
         await OnOpenQuoteModal.InvokeAsync();
     }
 
-    private async Task OpenQuoteFromMobile()
+    private async Task HandleOpenQuoteFromDropdown()
     {
-        CloseMobileMenu();
+        CloseMenu();
         await OnOpenQuoteModal.InvokeAsync();
     }
 }

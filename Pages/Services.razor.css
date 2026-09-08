@@ -1,19 +1,19 @@
 .page-hero-section {
-    padding: 6rem 0;
+    padding: 3.75rem 0 3rem 0;
 }
 
 .page-hero-lead {
-    font-size: 1.15rem;
+    font-size: 1.05rem;
     color: var(--soft-blue);
     max-width: 720px;
     margin: 0 auto;
-    line-height: 1.7;
+    line-height: 1.65;
 }
 
 .services-full-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
+    gap: 2.25rem;
 }
 
 .process-grid {
