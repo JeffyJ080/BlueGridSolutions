@@ -109,6 +109,8 @@
     [Parameter] public EventCallback<bool> IsOpenChanged { get; set; }
     [Parameter] public string? PreselectedService { get; set; }
     [Parameter] public string? PreselectedPropertyType { get; set; }
+    [Parameter] public decimal? PreselectedValuation { get; set; }
+    [Parameter] public string? PreselectedNotes { get; set; }
 
     private QuoteRequestModel _model = new();
     private bool _isSubmitting = false;
@@ -123,6 +125,16 @@
         if (!string.IsNullOrWhiteSpace(PreselectedPropertyType))
         {
             _model.PropertyType = PreselectedPropertyType;
+        }
+
+        if (PreselectedValuation.HasValue && PreselectedValuation.Value > 0)
+        {
+            _model.EstimatedValuation = PreselectedValuation.Value;
+        }
+
+        if (!string.IsNullOrWhiteSpace(PreselectedNotes))
+        {
+            _model.AdditionalNotes = PreselectedNotes;
         }
     }
 

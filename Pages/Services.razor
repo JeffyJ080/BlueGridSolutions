@@ -85,6 +85,13 @@
     </div>
 </section>
 
+<!-- Interactive Yield & ROI Calculator Section -->
+<section class="section yield-calc-section">
+    <div class="container">
+        <RentalYieldCalculator OnRequestProposal="HandleYieldProposal" />
+    </div>
+</section>
+
 <!-- Interactive FAQ Accordion Section -->
 <section class="section faq-section">
     <div class="container container-narrow">
@@ -115,12 +122,18 @@
 </section>
 
 <QuoteModal @bind-IsOpen="_isQuoteModalOpen" 
-            PreselectedService="@_preselectedService" />
+            PreselectedService="@_preselectedService" 
+            PreselectedPropertyType="@_preselectedPropertyType"
+            PreselectedValuation="@_preselectedValuation"
+            PreselectedNotes="@_preselectedNotes" />
 @code {
     private List<ServiceItem> _services = new();
     private List<FaqItem> _faqs = new();
     private bool _isQuoteModalOpen = false;
     private string? _preselectedService;
+    private string? _preselectedPropertyType;
+    private decimal? _preselectedValuation;
+    private string? _preselectedNotes;
 
     protected override async Task OnInitializedAsync()
     {
@@ -131,6 +144,18 @@
     private void HandleServiceQuote(ServiceItem service)
     {
         _preselectedService = service.Title;
+        _preselectedPropertyType = "Luxury Residential";
+        _preselectedValuation = null;
+        _preselectedNotes = null;
+        _isQuoteModalOpen = true;
+    }
+
+    private void HandleYieldProposal(RentalYieldModel calc)
+    {
+        _preselectedPropertyType = "Portfolio (Multi-Unit)";
+        _preselectedService = "Full-Portfolio Property Management";
+        _preselectedValuation = calc.PurchasePrice;
+        _preselectedNotes = $"[Services Page ROI Calculation] Valuation: {calc.PurchasePrice:C0} | Monthly Rent: {calc.MonthlyRent:C0} | Net Yield: {calc.NetYieldPercent:0.00}% | Est. Monthly Cash Flow: {calc.MonthlyNetCashFlow:C0}";
         _isQuoteModalOpen = true;
     }
 }

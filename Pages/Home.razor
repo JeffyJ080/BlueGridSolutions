@@ -135,6 +135,13 @@
     </div>
 </section>
 
+<!-- Interactive Financial Modeling Section -->
+<section class="section calculator-section">
+    <div class="container">
+        <RentalYieldCalculator OnRequestProposal="HandleYieldProposal" />
+    </div>
+</section>
+
 <!-- Client & Investor Testimonials -->
 @if (_company?.Testimonials != null && _company.Testimonials.Any())
 {
@@ -204,7 +211,9 @@
 <!-- Quote Modal -->
 <QuoteModal @bind-IsOpen="_isQuoteModalOpen" 
             PreselectedService="@_preselectedService" 
-            PreselectedPropertyType="@_preselectedPropertyType" />
+            PreselectedPropertyType="@_preselectedPropertyType"
+            PreselectedValuation="@_preselectedValuation"
+            PreselectedNotes="@_preselectedNotes" />
 @code {
     private CompanyInfo? _company;
     private List<ServiceItem> _featuredServices = new();
@@ -213,6 +222,8 @@
     private bool _isQuoteModalOpen = false;
     private string? _preselectedService;
     private string? _preselectedPropertyType;
+    private decimal? _preselectedValuation;
+    private string? _preselectedNotes;
 
     protected override async Task OnInitializedAsync()
     {
@@ -230,12 +241,27 @@
     private void HandleServiceQuote(ServiceItem service)
     {
         _preselectedService = service.Title;
+        _preselectedPropertyType = "Luxury Residential";
+        _preselectedValuation = null;
+        _preselectedNotes = null;
         _isQuoteModalOpen = true;
     }
 
     private void HandlePropertyInquire(PropertyProject property)
     {
         _preselectedPropertyType = property.Category;
+        _preselectedService = "Full-Portfolio Property Management";
+        _preselectedValuation = property.Valuation;
+        _preselectedNotes = $"Inquiring regarding property: {property.Title} ({property.Location}, {property.City})";
+        _isQuoteModalOpen = true;
+    }
+
+    private void HandleYieldProposal(RentalYieldModel calc)
+    {
+        _preselectedPropertyType = "Portfolio (Multi-Unit)";
+        _preselectedService = "Full-Portfolio Property Management";
+        _preselectedValuation = calc.PurchasePrice;
+        _preselectedNotes = $"[ROI Calculation] Purchase Valuation: {calc.PurchasePrice:C0} | Monthly Rent: {calc.MonthlyRent:C0} | Operating Expenses: {calc.AnnualOperatingExpenses:C0} | Vacancy: {calc.VacancyRatePercent:0.0}% | Projected Net Yield: {calc.NetYieldPercent:0.00}% | Est. Monthly Net Cash Flow: {calc.MonthlyNetCashFlow:C0}";
         _isQuoteModalOpen = true;
     }
 }

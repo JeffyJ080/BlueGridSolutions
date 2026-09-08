@@ -1,0 +1,595 @@
+@using BlueGridSolutions.Models
+
+<div class="rental-yield-calculator luxury-card" id="yield-calculator">
+    <div class="calculator-header">
+        <div class="header-badge-group">
+            <span class="badge-gold">Interactive Financial Modeling</span>
+            <span class="badge-live-calc">Live ROI Engine</span>
+        </div>
+        <h2 class="calculator-title">Rental Yield & Investment ROI Calculator</h2>
+        <p class="calculator-subtitle">
+            Model your property's cash flow, test vacancy resilience, and discover how BlueGrid's preventative stewardship maximizes your net annual yield.
+        </p>
+
+        <!-- Quick Portfolio Presets -->
+        <div class="preset-buttons">
+            <span class="preset-lbl">Quick Presets:</span>
+            <button type="button" class="preset-btn @(IsPresetActive(850000m, 4800m, 9600m, 4.0m) ? "active" : "")" 
+                    @onclick="() => ApplyPreset(850000m, 4800m, 9600m, 4.0m)">
+                Executive Condo ($850k)
+            </button>
+            <button type="button" class="preset-btn @(IsPresetActive(2400000m, 14000m, 22000m, 3.5m) ? "active" : "")" 
+                    @onclick="() => ApplyPreset(2400000m, 14000m, 22000m, 3.5m)">
+                Luxury Villa ($2.4M)
+            </button>
+            <button type="button" class="preset-btn @(IsPresetActive(5200000m, 32000m, 48000m, 4.0m) ? "active" : "")" 
+                    @onclick="() => ApplyPreset(5200000m, 32000m, 48000m, 4.0m)">
+                Commercial Plaza ($5.2M)
+            </button>
+        </div>
+    </div>
+
+    <div class="calculator-grid">
+        <!-- Controls Column (Sliders & Inputs) -->
+        <div class="calculator-controls">
+            <!-- 1. Purchase Price -->
+            <div class="calc-control-group">
+                <div class="calc-label-row">
+                    <label for="calc-price" class="calc-label">Property Purchase Price / Valuation</label>
+                    <span class="calc-value-display">@_model.PurchasePrice.ToString("C0")</span>
+                </div>
+                <input id="calc-price" type="range" class="calc-slider" 
+                       min="200000" max="10000000" step="25000" 
+                       value="@_model.PurchasePrice" 
+                       @oninput="HandlePriceChange" />
+                <div class="slider-ticks">
+                    <span>$200K</span>
+                    <span>$5M</span>
+                    <span>$10M</span>
+                </div>
+            </div>
+
+            <!-- 2. Monthly Rent -->
+            <div class="calc-control-group">
+                <div class="calc-label-row">
+                    <label for="calc-rent" class="calc-label">Target Monthly Rental Income</label>
+                    <span class="calc-value-display text-gold">@_model.MonthlyRent.ToString("C0") / mo</span>
+                </div>
+                <input id="calc-rent" type="range" class="calc-slider" 
+                       min="1000" max="60000" step="100" 
+                       value="@_model.MonthlyRent" 
+                       @oninput="HandleRentChange" />
+                <div class="slider-ticks">
+                    <span>$1,000</span>
+                    <span>$30,000</span>
+                    <span>$60,000</span>
+                </div>
+            </div>
+
+            <!-- 3. Annual Operating Expenses -->
+            <div class="calc-control-group">
+                <div class="calc-label-row">
+                    <label for="calc-expenses" class="calc-label">
+                        Annual Operating Expenses
+                        <span class="info-tag" title="Includes HOA, property tax, insurance, and maintenance reserve">ℹ️</span>
+                    </label>
+                    <span class="calc-value-display">@_model.AnnualOperatingExpenses.ToString("C0") / yr</span>
+                </div>
+                <input id="calc-expenses" type="range" class="calc-slider" 
+                       min="1000" max="120000" step="500" 
+                       value="@_model.AnnualOperatingExpenses" 
+                       @oninput="HandleExpensesChange" />
+                <div class="slider-ticks">
+                    <span>$1,000</span>
+                    <span>$60,000</span>
+                    <span>$120,000</span>
+                </div>
+            </div>
+
+            <!-- 4. Vacancy Rate -->
+            <div class="calc-control-group">
+                <div class="calc-label-row">
+                    <label for="calc-vacancy" class="calc-label">Estimated Vacancy Rate</label>
+                    <span class="calc-value-display">@_model.VacancyRatePercent.ToString("0.0")%</span>
+                </div>
+                <input id="calc-vacancy" type="range" class="calc-slider" 
+                       min="0" max="20" step="0.5" 
+                       value="@_model.VacancyRatePercent" 
+                       @oninput="HandleVacancyChange" />
+                <div class="slider-ticks">
+                    <span>0% (Full Occupancy)</span>
+                    <span>10%</span>
+                    <span>20%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Real-Time Metrics & Gauge Column -->
+        <div class="calculator-results">
+            <div class="results-card">
+                <!-- Highlight Hero Metric: Net Yield -->
+                <div class="hero-metric-box">
+                    <span class="hero-metric-label">Estimated Net Rental Yield</span>
+                    <div class="hero-metric-value-row">
+                        <span class="hero-metric-num">@_model.NetYieldPercent.ToString("0.00")%</span>
+                        <span class="yield-health-badge @GetYieldHealthClass()">@GetYieldHealthLabel()</span>
+                    </div>
+                    <p class="hero-metric-subtext">
+                        Net Yield reflects cash return after factoring in the @_model.VacancyRatePercent.ToString("0.0")% vacancy allowance and operating overheads.
+                    </p>
+                </div>
+
+                <!-- Secondary Metrics Matrix -->
+                <div class="metrics-matrix">
+                    <div class="matrix-item">
+                        <span class="matrix-lbl">Gross Yield</span>
+                        <span class="matrix-val">@_model.GrossYieldPercent.ToString("0.00")%</span>
+                    </div>
+                    <div class="matrix-item">
+                        <span class="matrix-lbl">Net Operating Income (NOI)</span>
+                        <span class="matrix-val text-gold">@_model.NetOperatingIncome.ToString("C0")<small>/yr</small></span>
+                    </div>
+                    <div class="matrix-item">
+                        <span class="matrix-lbl">Monthly Net Cash Flow</span>
+                        <span class="matrix-val text-gold">@_model.MonthlyNetCashFlow.ToString("C0")<small>/mo</small></span>
+                    </div>
+                    <div class="matrix-item">
+                        <span class="matrix-lbl">Effective Gross Income</span>
+                        <span class="matrix-val">@_model.EffectiveGrossIncome.ToString("C0")<small>/yr</small></span>
+                    </div>
+                </div>
+
+                <!-- Strategic Management CTA -->
+                <div class="results-cta">
+                    <div class="cta-note">
+                        <span class="shield-icon">🛡️</span>
+                        <span>BlueGrid's 99.4% occupancy and preventative maintenance SLAs can increase net cash flow by up to <strong>18.5%</strong>.</span>
+                    </div>
+                    <button type="button" class="btn btn-gold btn-lg w-100" @onclick="HandleRequestProposal">
+                        <span>Request Custom Yield Enhancement Plan →</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.rental-yield-calculator {
+    background: linear-gradient(135deg, var(--navy-surface) 0%, var(--primary-navy) 100%);
+    border: 1px solid var(--luxury-gold-border);
+    border-radius: var(--radius-xl);
+    padding: 3.5rem;
+    box-shadow: var(--shadow-xl);
+    color: var(--pure-white);
+    position: relative;
+    overflow: hidden;
+}
+
+.rental-yield-calculator::before {
+    content: '';
+    position: absolute;
+    top: -150px;
+    right: -150px;
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(197, 168, 128, 0.15) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.calculator-header {
+    margin-bottom: 2.5rem;
+}
+
+.header-badge-group {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.badge-live-calc {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    background: rgba(16, 185, 129, 0.2);
+    color: #34D399;
+    border: 1px solid rgba(52, 211, 153, 0.4);
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-full);
+}
+
+.calculator-title {
+    color: var(--pure-white);
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    margin-bottom: 0.75rem;
+}
+
+.calculator-subtitle {
+    color: var(--soft-blue);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    max-width: 820px;
+    margin-bottom: 1.75rem;
+}
+
+.preset-buttons {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    flex-wrap: wrap;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(214, 228, 255, 0.1);
+}
+
+.preset-lbl {
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--luxury-gold);
+}
+
+.preset-btn {
+    background: rgba(19, 43, 80, 0.7);
+    border: 1px solid var(--navy-border);
+    color: var(--soft-blue);
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 0.4rem 0.9rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.preset-btn:hover {
+    border-color: var(--luxury-gold);
+    color: var(--pure-white);
+}
+
+.preset-btn.active {
+    background: var(--luxury-gold);
+    color: var(--primary-navy);
+    border-color: var(--luxury-gold);
+    font-weight: 700;
+}
+
+.calculator-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 3rem;
+    align-items: stretch;
+}
+
+.calculator-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1.85rem;
+}
+
+.calc-control-group {
+    background: rgba(11, 31, 58, 0.5);
+    border: 1px solid rgba(214, 228, 255, 0.1);
+    border-radius: var(--radius-md);
+    padding: 1.25rem 1.5rem;
+}
+
+.calc-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.85rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.calc-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--soft-blue);
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.info-tag {
+    cursor: help;
+    font-size: 0.85rem;
+}
+
+.calc-value-display {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--pure-white);
+}
+
+.calc-slider {
+    width: 100%;
+    height: 8px;
+    border-radius: 4px;
+    background: rgba(214, 228, 255, 0.15);
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+}
+
+.calc-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--luxury-gold);
+    border: 2px solid var(--pure-white);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: transform var(--transition-fast), background-color var(--transition-fast);
+}
+
+.calc-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+    background: #DFCDAF;
+}
+
+.calc-slider::-moz-range-thumb {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--luxury-gold);
+    border: 2px solid var(--pure-white);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+.slider-ticks {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.72rem;
+    color: var(--soft-blue-muted);
+    margin-top: 0.5rem;
+}
+
+.calculator-results {
+    display: flex;
+    flex-direction: column;
+}
+
+.results-card {
+    background: rgba(19, 43, 80, 0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--luxury-gold-border);
+    border-radius: var(--radius-lg);
+    padding: 2.25rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.hero-metric-box {
+    background: linear-gradient(135deg, rgba(11, 31, 58, 0.9) 0%, rgba(7, 20, 38, 0.95) 100%);
+    border: 1px solid var(--luxury-gold-border);
+    border-radius: var(--radius-md);
+    padding: 1.75rem;
+    text-align: center;
+    margin-bottom: 1.75rem;
+    box-shadow: var(--shadow-md);
+}
+
+.hero-metric-label {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--soft-blue);
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.hero-metric-value-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.hero-metric-num {
+    font-family: var(--font-serif);
+    font-size: clamp(2.5rem, 4.5vw, 3.5rem);
+    font-weight: 800;
+    color: var(--luxury-gold);
+    line-height: 1;
+}
+
+.yield-health-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.3rem 0.75rem;
+    border-radius: var(--radius-full);
+}
+
+.health-high {
+    background: rgba(16, 185, 129, 0.25);
+    color: #34D399;
+    border: 1px solid rgba(52, 211, 153, 0.5);
+}
+
+.health-strong {
+    background: rgba(197, 168, 128, 0.25);
+    color: var(--luxury-gold-light);
+    border: 1px solid var(--luxury-gold);
+}
+
+.health-moderate {
+    background: rgba(59, 130, 246, 0.25);
+    color: #93C5FD;
+    border: 1px solid rgba(147, 197, 253, 0.5);
+}
+
+.hero-metric-subtext {
+    font-size: 0.82rem;
+    color: var(--soft-blue-muted);
+    line-height: 1.45;
+    margin: 0;
+}
+
+.metrics-matrix {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.75rem;
+}
+
+.matrix-item {
+    background: rgba(11, 31, 58, 0.6);
+    border: 1px solid rgba(214, 228, 255, 0.08);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+}
+
+.matrix-lbl {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--soft-blue-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.35rem;
+    font-weight: 600;
+}
+
+.matrix-val {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--pure-white);
+    display: block;
+}
+
+.matrix-val small {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    color: var(--soft-blue);
+    font-weight: 400;
+    margin-left: 0.2rem;
+}
+
+.results-cta {
+    margin-top: auto;
+}
+
+.cta-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.85rem;
+    color: var(--soft-blue);
+    line-height: 1.45;
+    margin-bottom: 1.25rem;
+    background: rgba(197, 168, 128, 0.1);
+    border-left: 3px solid var(--luxury-gold);
+    padding: 0.75rem 1rem;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.shield-icon {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+@@media (max-width: 1024px) {
+    .calculator-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+}
+
+@@media (max-width: 768px) {
+    .rental-yield-calculator {
+        padding: 2rem 1.5rem;
+    }
+
+    .metrics-matrix {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+@code {
+    [Parameter] public EventCallback<RentalYieldModel> OnRequestProposal { get; set; }
+
+    private RentalYieldModel _model = new();
+
+    private void HandlePriceChange(ChangeEventArgs e)
+    {
+        if (decimal.TryParse(e.Value?.ToString(), out var val))
+        {
+            _model.PurchasePrice = val;
+        }
+    }
+
+    private void HandleRentChange(ChangeEventArgs e)
+    {
+        if (decimal.TryParse(e.Value?.ToString(), out var val))
+        {
+            _model.MonthlyRent = val;
+        }
+    }
+
+    private void HandleExpensesChange(ChangeEventArgs e)
+    {
+        if (decimal.TryParse(e.Value?.ToString(), out var val))
+        {
+            _model.AnnualOperatingExpenses = val;
+        }
+    }
+
+    private void HandleVacancyChange(ChangeEventArgs e)
+    {
+        if (decimal.TryParse(e.Value?.ToString(), out var val))
+        {
+            _model.VacancyRatePercent = val;
+        }
+    }
+
+    private void ApplyPreset(decimal price, decimal rent, decimal expenses, decimal vacancy)
+    {
+        _model.PurchasePrice = price;
+        _model.MonthlyRent = rent;
+        _model.AnnualOperatingExpenses = expenses;
+        _model.VacancyRatePercent = vacancy;
+    }
+
+    private bool IsPresetActive(decimal price, decimal rent, decimal expenses, decimal vacancy)
+    {
+        return _model.PurchasePrice == price &&
+               _model.MonthlyRent == rent &&
+               _model.AnnualOperatingExpenses == expenses &&
+               _model.VacancyRatePercent == vacancy;
+    }
+
+    private string GetYieldHealthClass()
+    {
+        if (_model.NetYieldPercent >= 6.0m) return "health-high";
+        if (_model.NetYieldPercent >= 4.5m) return "health-strong";
+        return "health-moderate";
+    }
+
+    private string GetYieldHealthLabel()
+    {
+        if (_model.NetYieldPercent >= 6.0m) return "High Alpha Yield";
+        if (_model.NetYieldPercent >= 4.5m) return "Strong Market Return";
+        return "Conservative Cash Flow";
+    }
+
+    private async Task HandleRequestProposal()
+    {
+        await OnRequestProposal.InvokeAsync(_model);
+    }
+}
